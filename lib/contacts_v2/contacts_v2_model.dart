@@ -11,8 +11,8 @@ class ContactsV2Model extends FlutterFlowModel<ContactsV2Widget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Custom Action - getContacts] action in Row widget.
-  List<FinalContactStruct>? contacts3;
+  // Stores action output result for [Custom Action - fetchPhoneContacts] action in Row widget.
+  List<FinalContactStruct>? fetchedPhoneContacts;
 
   @override
   void initState(BuildContext context) {}

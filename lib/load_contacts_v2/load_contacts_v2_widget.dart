@@ -1,11 +1,10 @@
-import '/backend/schema/structs/index.dart';
 import '/backend/sqlite/sqlite_manager.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/permissions_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -37,10 +36,37 @@ class _LoadContactsV2WidgetState extends State<LoadContactsV2Widget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      FFAppState().contacts = [];
-      safeSetState(() {});
-      await requestPermission(contactsPermission);
-      _model.contactReadOutput = await actions.readContacts();
+      await showDialog(
+        context: context,
+        builder: (alertDialogContext) {
+          return AlertDialog(
+            title: Text('Starting loading'),
+            content: Text('yES'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(alertDialogContext),
+                child: Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
+      await showDialog(
+        context: context,
+        builder: (alertDialogContext) {
+          return AlertDialog(
+            title: Text('Loaded Contacts'),
+            content: Text('Tp page sate'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(alertDialogContext),
+                child: Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
+      _model.mobileContactsRead = await actions.getContacts();
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -240,9 +266,7 @@ class _LoadContactsV2WidgetState extends State<LoadContactsV2Widget> {
                                               children: [
                                                 Text(
                                                   valueOrDefault<String>(
-                                                    loadedContactsItem
-                                                        .hasName()
-                                                        .toString(),
+                                                    loadedContactsItem.name,
                                                     'Ahmed',
                                                   ),
                                                   style: FlutterFlowTheme.of(
@@ -274,8 +298,7 @@ class _LoadContactsV2WidgetState extends State<LoadContactsV2Widget> {
                                                 Text(
                                                   valueOrDefault<String>(
                                                     loadedContactsItem
-                                                        .hasPhoneNumber()
-                                                        .toString(),
+                                                        .phoneNumber,
                                                     '00000000000',
                                                   ),
                                                   style: FlutterFlowTheme.of(
@@ -331,19 +354,30 @@ class _LoadContactsV2WidgetState extends State<LoadContactsV2Widget> {
                                           child: Checkbox(
                                             value: _model.checkboxValueMap[
                                                     loadedContactsItem] ??=
-                                                loadedContactsItem
-                                                    .hasIsSelected(),
+                                                loadedContactsItem.isSelected,
                                             onChanged: (newValue) async {
                                               safeSetState(() =>
                                                   _model.checkboxValueMap[
                                                           loadedContactsItem] =
                                                       newValue!);
                                               if (newValue!) {
-                                                FFAppState().FinalContacts =
-                                                    _model.checkboxCheckedItems
-                                                        .toList()
-                                                        .cast<
-                                                            FinalContactStruct>();
+                                                FFAppState()
+                                                    .updateFinalContactsAtIndex(
+                                                  loadedContactsIndex,
+                                                  (e) => e..isSelected = true,
+                                                );
+                                                unawaited(
+                                                  () async {}(),
+                                                );
+                                              } else {
+                                                FFAppState()
+                                                    .updateFinalContactsAtIndex(
+                                                  loadedContactsIndex,
+                                                  (e) => e..isSelected = false,
+                                                );
+                                                unawaited(
+                                                  () async {}(),
+                                                );
                                               }
                                             },
                                             side: (FlutterFlowTheme.of(context)
@@ -381,30 +415,19 @@ class _LoadContactsV2WidgetState extends State<LoadContactsV2Widget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       for (int loop1Index = 0;
-                          loop1Index < FFAppState().FinalContacts.length;
+                          loop1Index <
+                              FFAppState()
+                                  .FinalContacts
+                                  .unique((e) => e.phoneNumber)
+                                  .length;
                           loop1Index++) {
-                        final currentLoop1Item =
-                            FFAppState().FinalContacts[loop1Index];
-                        if (currentLoop1Item.hasIsSelected()) {
+                        final currentLoop1Item = FFAppState()
+                            .FinalContacts
+                            .unique((e) => e.phoneNumber)[loop1Index];
+                        if (currentLoop1Item.isSelected) {
                           await SQLiteManager.instance.addContactWithoutPhoto(
                             name: currentLoop1Item.name,
                             phone: currentLoop1Item.phoneNumber,
-                          );
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title: Text('Added'),
-                                content: Text(currentLoop1Item.name),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              );
-                            },
                           );
                         }
                       }
@@ -519,54 +542,43 @@ class _LoadContactsV2WidgetState extends State<LoadContactsV2Widget> {
                             ),
                           ),
                         ),
-                        InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            context.pushNamed(LoadContactsV2Widget.routeName);
-                          },
-                          child: Container(
-                            height: MediaQuery.sizeOf(context).height * 0.08,
-                            decoration: BoxDecoration(
-                              color: Color(0x00FFFFFF),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                FaIcon(
-                                  FontAwesomeIcons.solidAddressBook,
-                                  color: Color(0xFF313A51),
-                                  size:
-                                      MediaQuery.sizeOf(context).height * 0.03,
-                                ),
-                                Text(
-                                  'Contacts',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w600,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color: Color(0xFF313A51),
-                                        fontSize:
-                                            MediaQuery.sizeOf(context).height *
-                                                0.015,
-                                        letterSpacing: 0.0,
+                        Container(
+                          height: MediaQuery.sizeOf(context).height * 0.08,
+                          decoration: BoxDecoration(
+                            color: Color(0x00FFFFFF),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              FaIcon(
+                                FontAwesomeIcons.solidAddressBook,
+                                color: Color(0xFF313A51),
+                                size: MediaQuery.sizeOf(context).height * 0.03,
+                              ),
+                              Text(
+                                'Contacts',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      font: GoogleFonts.inter(
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                ),
-                              ],
-                            ),
+                                      color: Color(0xFF313A51),
+                                      fontSize:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.015,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                              ),
+                            ],
                           ),
                         ),
                         InkWell(

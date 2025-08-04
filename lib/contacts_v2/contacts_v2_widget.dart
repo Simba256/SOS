@@ -179,8 +179,8 @@ class _ContactsV2WidgetState extends State<ContactsV2Widget> {
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: Text('here'),
-                                    content: Text('1'),
+                                    title: Text('hello'),
+                                    content: Text('hi'),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
@@ -191,13 +191,14 @@ class _ContactsV2WidgetState extends State<ContactsV2Widget> {
                                   );
                                 },
                               );
-                              _model.contacts3 = await actions.getContacts();
+                              _model.fetchedPhoneContacts =
+                                  await actions.fetchPhoneContacts();
                               await showDialog(
                                 context: context,
                                 builder: (alertDialogContext) {
                                   return AlertDialog(
-                                    title: Text('here'),
-                                    content: Text('2'),
+                                    title: Text('chal'),
+                                    content: Text('ja'),
                                     actions: [
                                       TextButton(
                                         onPressed: () =>
@@ -208,9 +209,11 @@ class _ContactsV2WidgetState extends State<ContactsV2Widget> {
                                   );
                                 },
                               );
-                              FFAppState().FinalContacts = _model.contacts3!
+                              FFAppState().FinalContacts = _model
+                                  .fetchedPhoneContacts!
                                   .toList()
                                   .cast<FinalContactStruct>();
+                              safeSetState(() {});
                               await showDialog(
                                 context: context,
                                 builder: (alertDialogContext) {
