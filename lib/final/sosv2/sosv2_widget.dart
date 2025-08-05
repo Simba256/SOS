@@ -127,7 +127,7 @@ class _Sosv2WidgetState extends State<Sosv2Widget>
                                             .bodyLarge
                                             .fontStyle,
                                       ),
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontSize: 184.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w900,
