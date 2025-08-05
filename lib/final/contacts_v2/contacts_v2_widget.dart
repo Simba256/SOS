@@ -175,80 +175,15 @@ class _ContactsV2WidgetState extends State<ContactsV2Widget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               await requestPermission(contactsPermission);
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('hello'),
-                                    content: Text('hi'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
                               _model.fetchedPhoneContacts =
                                   await actions.fetchPhoneContacts();
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('chal'),
-                                    content: Text('ja'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
                               FFAppState().FinalContacts = _model
                                   .fetchedPhoneContacts!
                                   .toList()
                                   .cast<FinalContactStruct>();
                               safeSetState(() {});
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('here'),
-                                    content: Text('3'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
 
                               context.pushNamed(LoadContactsV2Widget.routeName);
-
-                              await showDialog(
-                                context: context,
-                                builder: (alertDialogContext) {
-                                  return AlertDialog(
-                                    title: Text('here'),
-                                    content: Text('4'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(alertDialogContext),
-                                        child: Text('Ok'),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
 
                               safeSetState(() {});
                             },
