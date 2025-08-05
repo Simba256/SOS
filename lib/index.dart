@@ -11,13 +11,13 @@ export '/test_image/test_image_widget.dart' show TestImageWidget;
 export '/temp/temp_widget.dart' show TempWidget;
 export '/reset_p_w/reset_p_w_widget.dart' show ResetPWWidget;
 export '/sosyb/sosyb_widget.dart' show SosybWidget;
-export '/sign_in_v2/sign_in_v2_widget.dart' show SignInV2Widget;
-export '/home_v2/home_v2_widget.dart' show HomeV2Widget;
-export '/contacts_v2/contacts_v2_widget.dart' show ContactsV2Widget;
-export '/sosv2/sosv2_widget.dart' show Sosv2Widget;
+export '/final/sign_in_v2/sign_in_v2_widget.dart' show SignInV2Widget;
+export '/final/home_v2/home_v2_widget.dart' show HomeV2Widget;
+export '/final/contacts_v2/contacts_v2_widget.dart' show ContactsV2Widget;
+export '/final/sosv2/sosv2_widget.dart' show Sosv2Widget;
 export '/settings_v2/settings_v2_widget.dart' show SettingsV2Widget;
-export '/sign_up_v2/sign_up_v2_widget.dart' show SignUpV2Widget;
-export '/load_contacts_v2/load_contacts_v2_widget.dart'
+export '/final/sign_up_v2/sign_up_v2_widget.dart' show SignUpV2Widget;
+export '/final/load_contacts_v2/load_contacts_v2_widget.dart'
     show LoadContactsV2Widget;
-export '/profile_v2/profile_v2_widget.dart' show ProfileV2Widget;
+export '/final/profile_v2/profile_v2_widget.dart' show ProfileV2Widget;
 export '/my_page/my_page_widget.dart' show MyPageWidget;

@@ -6,6 +6,7 @@ import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -36,36 +37,6 @@ class _LoadContactsV2WidgetState extends State<LoadContactsV2Widget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await showDialog(
-        context: context,
-        builder: (alertDialogContext) {
-          return AlertDialog(
-            title: Text('Starting loading'),
-            content: Text('yES'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(alertDialogContext),
-                child: Text('Ok'),
-              ),
-            ],
-          );
-        },
-      );
-      await showDialog(
-        context: context,
-        builder: (alertDialogContext) {
-          return AlertDialog(
-            title: Text('Loaded Contacts'),
-            content: Text('Tp page sate'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(alertDialogContext),
-                child: Text('Ok'),
-              ),
-            ],
-          );
-        },
-      );
       _model.mobileContactsRead = await actions.getContacts();
     });
 
@@ -264,11 +235,14 @@ class _LoadContactsV2WidgetState extends State<LoadContactsV2Widget> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Text(
+                                                AutoSizeText(
                                                   valueOrDefault<String>(
                                                     loadedContactsItem.name,
                                                     'Ahmed',
+                                                  ).maybeHandleOverflow(
+                                                    maxChars: 25,
                                                   ),
+                                                  minFontSize: 10.0,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium

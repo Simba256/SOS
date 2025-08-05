@@ -160,22 +160,6 @@ class _SignUpV2WidgetState extends State<SignUpV2Widget> {
                               }
                             }
 
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Image Uploaded'),
-                                  content: Text('Image Uploaded to Firebase'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
                             _model.uploadedUserImage =
                                 await actions.convertImageToBase64(
                               _model
