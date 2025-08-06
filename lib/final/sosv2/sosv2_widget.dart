@@ -203,8 +203,7 @@ class _Sosv2WidgetState extends State<Sosv2Widget>
                               }
                               _model.soundPlayer!.setVolume(1.0);
                               _model.soundPlayer!
-                                  .setAsset(
-                                      'assets/audios/sos-signal-137144.mp3')
+                                  .setAsset('assets/audios/3150Hz.mp3')
                                   .then((_) => _model.soundPlayer!.play());
                             }
                           },
