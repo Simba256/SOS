@@ -11,9 +11,7 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:torch_light/torch_light.dart';
-
-// --- Constants for tree-shaking and styling ---
+// --- Constants for styling ---
 
 // Fully opaque colors for off and on states
 const _offColor = Color(0xFFDEDEDE); // Light gray, fully opaque
@@ -23,11 +21,11 @@ const _onGradient = [
 ];
 const _shadowOn = Color(0x66ED4523); // Shadow color with some transparency
 
-// Morse code timing (unit in ms). Dot = 1×unit, dash = 3×unit.
+// Animation timing for the blinking effect (unit in ms)
 const int _unitMs = 250;
 
 // SOS pattern definition (list of durations for on/off pairs)
-final List<_Pulse> _sPattern = [
+final List<_Pulse> _sosPattern = [
   // S: dot dot dot
   _Pulse(1, 0), _Pulse(0, 1),
   _Pulse(1, 0), _Pulse(0, 1),
@@ -49,89 +47,87 @@ class _Pulse {
   const _Pulse(this.onUnits, this.offUnits);
 }
 
-class TorchToggleButton extends StatefulWidget {
-  const TorchToggleButton({
+class UIToggleButton extends StatefulWidget {
+  const UIToggleButton({
     super.key,
     this.width,
     this.height,
-    this.torchIcon,
+    this.icon,
+    this.onTap,
   });
 
   final double? width;
   final double? height;
-  final Widget? torchIcon;
+  final Widget? icon;
+  final VoidCallback? onTap; // Callback for when button is tapped
 
   @override
-  State<TorchToggleButton> createState() => _TorchToggleButtonState();
+  State<UIToggleButton> createState() => _UIToggleButtonState();
 }
 
-class _TorchToggleButtonState extends State<TorchToggleButton> {
-  bool _hasTorch = false;
-  bool _isOn = false; // "steady on" or SOS mode (just controls styling)
-  bool _isSosMode = false; // true when SOS blinking is active
-
-  @override
-  void initState() {
-    super.initState();
-    // Check availability once at startup
-    TorchLight.isTorchAvailable().then((a) {
-      if (mounted) setState(() => _hasTorch = a);
-    }).catchError((_) {
-      if (mounted) setState(() => _hasTorch = false);
-    });
-  }
+class _UIToggleButtonState extends State<UIToggleButton> {
+  bool _isOn = false; // Controls the visual state (off/on styling)
+  bool _isAnimating = false; // true when SOS animation is active
 
   @override
   void dispose() {
     super.dispose();
-    _cancelSos = true; // ensure any running loop is canceled
+    _cancelAnimation = true; // ensure any running loop is canceled
   }
 
-  bool _cancelSos = false;
+  bool _cancelAnimation = false;
 
   void _handleTap() {
-    if (!_hasTorch) return;
+    // Call the external callback if provided
+    if (widget.onTap != null) {
+      widget.onTap!();
+    }
 
-    if (_isSosMode) {
-      // Tap during SOS mode: cancel it
-      _cancelSos = true;
-      TorchLight.disableTorch(); // turn off immediately
+    if (_isAnimating) {
+      // Tap during animation: cancel it
+      _cancelAnimation = true;
       setState(() {
-        _isSosMode = false;
+        _isAnimating = false;
         _isOn = false;
       });
     } else {
-      // Enter SOS mode
+      // Start animation
       setState(() {
         _isOn = true;
-        _isSosMode = true;
+        _isAnimating = true;
       });
-      _cancelSos = false;
-      _startSosLoop();
+      _cancelAnimation = false;
+      _startSosAnimation();
     }
   }
 
-  Future<void> _startSosLoop() async {
-    while (mounted && !_cancelSos) {
-      for (final p in _sPattern) {
-        if (_cancelSos) break;
-        if (p.onUnits > 0) {
-          await TorchLight.enableTorch();
-          await Future.delayed(Duration(milliseconds: p.onUnits * _unitMs));
+  Future<void> _startSosAnimation() async {
+    while (mounted && !_cancelAnimation) {
+      for (final pulse in _sosPattern) {
+        if (_cancelAnimation) break;
+
+        // "On" phase - show the active styling
+        if (pulse.onUnits > 0) {
+          setState(() => _isOn = true);
+          await Future.delayed(Duration(milliseconds: pulse.onUnits * _unitMs));
         }
-        if (_cancelSos) break;
-        await TorchLight.disableTorch();
-        await Future.delayed(Duration(milliseconds: p.offUnits * _unitMs));
+
+        if (_cancelAnimation) break;
+
+        // "Off" phase - show the inactive styling
+        setState(() => _isOn = false);
+        await Future.delayed(Duration(milliseconds: pulse.offUnits * _unitMs));
       }
     }
-    await TorchLight.disableTorch();
+
+    // Ensure we end in the off state
+    if (mounted) {
+      setState(() => _isOn = false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (!_hasTorch) {
-      return const Text('No flashlight available');
-    }
     final w = widget.width ?? 64.0;
     final h = widget.height ?? 64.0;
 
@@ -161,16 +157,17 @@ class _TorchToggleButtonState extends State<TorchToggleButton> {
               : null,
         ),
         child: Center(
-          child: widget.torchIcon != null
+          child: widget.icon != null
               ? IconTheme(
                   data: IconThemeData(
                     size: 32.0,
                     color: _isOn ? Colors.white : Colors.grey[600],
                   ),
-                  child: widget.torchIcon!,
+                  child: widget.icon!,
                 )
               : Icon(
-                  Icons.flashlight_on_rounded,
+                  Icons
+                      .lightbulb_rounded, // Changed from flashlight to lightbulb
                   size: 32.0,
                   color: _isOn ? Colors.white : Colors.grey[600],
                 ),

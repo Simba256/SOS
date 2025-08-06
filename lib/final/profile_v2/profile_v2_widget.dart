@@ -3,10 +3,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -27,11 +29,22 @@ class _ProfileV2WidgetState extends State<ProfileV2Widget> {
   late ProfileV2Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
+  bool _isKeyboardVisible = false;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ProfileV2Model());
+
+    if (!isWeb) {
+      _keyboardVisibilitySubscription =
+          KeyboardVisibilityController().onChange.listen((bool visible) {
+        safeSetState(() {
+          _isKeyboardVisible = visible;
+        });
+      });
+    }
 
     _model.textController1 ??= TextEditingController(text: FFAppState().Name);
     _model.textFieldFocusNode1 ??= FocusNode();
@@ -46,6 +59,9 @@ class _ProfileV2WidgetState extends State<ProfileV2Widget> {
   void dispose() {
     _model.dispose();
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription.cancel();
+    }
     super.dispose();
   }
 
@@ -99,7 +115,7 @@ class _ProfileV2WidgetState extends State<ProfileV2Widget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 15.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
                       child: InkWell(
                         splashColor: Colors.transparent,
                         focusColor: Colors.transparent,
@@ -171,7 +187,7 @@ class _ProfileV2WidgetState extends State<ProfileV2Widget> {
               Expanded(
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 50.0, 16.0, 50.0),
+                      EdgeInsetsDirectional.fromSTEB(16.0, 25.0, 16.0, 25.0),
                   child: Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
@@ -361,7 +377,7 @@ class _ProfileV2WidgetState extends State<ProfileV2Widget> {
                                 Align(
                                   alignment: AlignmentDirectional(-1.0, 0.0),
                                   child: Text(
-                                    'E-Mail Address',
+                                    'E-mail Address',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -521,15 +537,15 @@ class _ProfileV2WidgetState extends State<ProfileV2Widget> {
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(-1.0, 0.0),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(16.0, 20.0, 0.0, 20.0),
+                      EdgeInsetsDirectional.fromSTEB(16.0, 20.0, 0.0, 185.0),
                   child: FFButtonWidget(
                     onPressed: () async {
                       context.pushNamed(SignInV2Widget.routeName);
                     },
-                    text: 'LogOut',
+                    text: 'Log out',
                     options: FFButtonOptions(
                       height: 40.0,
                       padding:
@@ -579,203 +595,216 @@ class _ProfileV2WidgetState extends State<ProfileV2Widget> {
                       0.0,
                     )),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          context.pushNamed(HomeV2Widget.routeName);
-                        },
-                        child: Container(
-                          height: MediaQuery.sizeOf(context).height * 0.08,
-                          decoration: BoxDecoration(
-                            color: Color(0x00FFFFFF),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.home_outlined,
-                                color: Colors.black,
-                                size: MediaQuery.sizeOf(context).height * 0.03,
-                              ),
-                              Text(
-                                'Home',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.inter(
+                  child: Visibility(
+                    visible: !(isWeb
+                        ? MediaQuery.viewInsetsOf(context).bottom > 0
+                        : _isKeyboardVisible),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(HomeV2Widget.routeName);
+                          },
+                          child: Container(
+                            height: MediaQuery.sizeOf(context).height * 0.08,
+                            decoration: BoxDecoration(
+                              color: Color(0x00FFFFFF),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.home_outlined,
+                                  color: Colors.black,
+                                  size:
+                                      MediaQuery.sizeOf(context).height * 0.03,
+                                ),
+                                Text(
+                                  'Home',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: Colors.black,
+                                        fontSize:
+                                            MediaQuery.sizeOf(context).height *
+                                                0.015,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: Colors.black,
-                                      fontSize:
-                                          MediaQuery.sizeOf(context).height *
-                                              0.015,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                              ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          context.pushNamed(ContactsV2Widget.routeName);
-                        },
-                        child: Container(
-                          height: MediaQuery.sizeOf(context).height * 0.08,
-                          decoration: BoxDecoration(
-                            color: Color(0x00FFFFFF),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              FaIcon(
-                                FontAwesomeIcons.addressBook,
-                                color: Color(0xFF313A51),
-                                size: MediaQuery.sizeOf(context).height * 0.03,
-                              ),
-                              Text(
-                                'Contacts',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.inter(
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(ContactsV2Widget.routeName);
+                          },
+                          child: Container(
+                            height: MediaQuery.sizeOf(context).height * 0.08,
+                            decoration: BoxDecoration(
+                              color: Color(0x00FFFFFF),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                FaIcon(
+                                  FontAwesomeIcons.addressBook,
+                                  color: Color(0xFF313A51),
+                                  size:
+                                      MediaQuery.sizeOf(context).height * 0.03,
+                                ),
+                                Text(
+                                  'Contacts',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: Color(0xFF313A51),
+                                        fontSize:
+                                            MediaQuery.sizeOf(context).height *
+                                                0.015,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: Color(0xFF313A51),
-                                      fontSize:
-                                          MediaQuery.sizeOf(context).height *
-                                              0.015,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                              ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          context.pushNamed(Sosv2Widget.routeName);
-                        },
-                        child: Container(
-                          height: MediaQuery.sizeOf(context).height * 0.08,
-                          decoration: BoxDecoration(
-                            color: Color(0x00FFFFFF),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              FaIcon(
-                                FontAwesomeIcons.bell,
-                                color: Color(0xFF313A51),
-                                size: MediaQuery.sizeOf(context).height * 0.03,
-                              ),
-                              Text(
-                                'SOS',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.inter(
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(Sosv2Widget.routeName);
+                          },
+                          child: Container(
+                            height: MediaQuery.sizeOf(context).height * 0.08,
+                            decoration: BoxDecoration(
+                              color: Color(0x00FFFFFF),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                FaIcon(
+                                  FontAwesomeIcons.bell,
+                                  color: Color(0xFF313A51),
+                                  size:
+                                      MediaQuery.sizeOf(context).height * 0.03,
+                                ),
+                                Text(
+                                  'SOS',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: Color(0xFF313A51),
+                                        fontSize:
+                                            MediaQuery.sizeOf(context).height *
+                                                0.015,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: Color(0xFF313A51),
-                                      fontSize:
-                                          MediaQuery.sizeOf(context).height *
-                                              0.015,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                              ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          context.pushNamed(ProfileV2Widget.routeName);
-                        },
-                        child: Container(
-                          height: MediaQuery.sizeOf(context).height * 0.08,
-                          decoration: BoxDecoration(
-                            color: Color(0x00FFFFFF),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.person,
-                                color: Color(0xFF313A51),
-                                size: MediaQuery.sizeOf(context).height * 0.03,
-                              ),
-                              Text(
-                                'Profile',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.inter(
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            context.pushNamed(ProfileV2Widget.routeName);
+                          },
+                          child: Container(
+                            height: MediaQuery.sizeOf(context).height * 0.08,
+                            decoration: BoxDecoration(
+                              color: Color(0x00FFFFFF),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.person,
+                                  color: Color(0xFF313A51),
+                                  size:
+                                      MediaQuery.sizeOf(context).height * 0.03,
+                                ),
+                                Text(
+                                  'Profile',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: Color(0xFF313A51),
+                                        fontSize:
+                                            MediaQuery.sizeOf(context).height *
+                                                0.015,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                         fontStyle: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: Color(0xFF313A51),
-                                      fontSize:
-                                          MediaQuery.sizeOf(context).height *
-                                              0.015,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                              ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

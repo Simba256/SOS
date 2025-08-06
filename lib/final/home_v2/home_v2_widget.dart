@@ -6880,8 +6880,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                   )),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -7410,8 +7409,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                   )),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
