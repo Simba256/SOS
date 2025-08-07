@@ -109,7 +109,7 @@ class _Sosv2WidgetState extends State<Sosv2Widget>
                   Align(
                     alignment: AlignmentDirectional(0.0, -1.0),
                     child: Container(
-                      height: 540.0,
+                      height: 600.0,
                       decoration: BoxDecoration(
                         color: Colors.transparent,
                       ),
@@ -194,6 +194,7 @@ class _Sosv2WidgetState extends State<Sosv2Widget>
                                 height: 90.0,
                                 torchIcon: Icon(
                                   FFIcons.ksound,
+                                  color: Color(0xFF313A51),
                                 ),
                               ),
                             ),
