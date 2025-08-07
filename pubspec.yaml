@@ -27,7 +27,6 @@ dependencies:
     sdk: flutter
   flutter_web_plugins:
     sdk: flutter
-  assets_audio_player: ^3.0.6
   audioplayers: ^5.2.1
   auto_size_text: 3.0.0
   cached_network_image: 3.4.1

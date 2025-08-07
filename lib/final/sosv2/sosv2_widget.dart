@@ -182,47 +182,18 @@ class _Sosv2WidgetState extends State<Sosv2Widget>
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 0.0, 0.0),
-                              child: Container(
-                                width: 90.0,
-                                height: 90.0,
-                                child: custom_widgets.TorchToggleButton(
-                                  width: 90.0,
-                                  height: 90.0,
-                                  torchIcon: Icon(
-                                    FFIcons.ksound,
-                                    color: Color(0xFF313A51),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 0.0, 0.0, 0.0),
                             child: Container(
                               width: 90.0,
                               height: 90.0,
-                              child: custom_widgets.UIToggleButton(
+                              child: custom_widgets.AudioToggleButton(
                                 width: 90.0,
                                 height: 90.0,
-                                icon: Icon(
+                                torchIcon: Icon(
                                   FFIcons.ksound,
                                 ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 90.0,
-                            height: 90.0,
-                            child: custom_widgets.AudioToggleButton(
-                              width: 90.0,
-                              height: 90.0,
-                              torchIcon: Icon(
-                                FFIcons.ksound,
                               ),
                             ),
                           ),
