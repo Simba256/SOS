@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:just_audio/just_audio.dart';
 import 'sosv2_model.dart';
 export 'sosv2_model.dart';
 
@@ -197,6 +198,31 @@ class _Sosv2WidgetState extends State<Sosv2Widget>
                               ),
                             ),
                           ),
+                          if (false)
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                _model.soundPlayer ??= AudioPlayer();
+                                if (_model.soundPlayer!.playing) {
+                                  await _model.soundPlayer!.stop();
+                                }
+                                _model.soundPlayer!.setVolume(1.0);
+                                _model.soundPlayer!
+                                    .setAsset('assets/audios/3150Hz.mp3')
+                                    .then((_) => _model.soundPlayer!.play());
+                              },
+                              child: Container(
+                                width: 100.0,
+                                height: 100.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),
