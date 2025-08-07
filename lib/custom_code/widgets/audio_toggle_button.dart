@@ -110,15 +110,25 @@ class _AudioToggleButtonState extends State<AudioToggleButton> {
         } catch (e2) {
           print('Failed to load from assets/audio/3150Hz.mp3: $e2');
 
-          // Last attempt - try without assets prefix
+          // Try alternative paths
           try {
-            final ByteData data = await rootBundle.load('3150Hz.mp3');
+            final ByteData data =
+                await rootBundle.load('assets/audios/3150Hz.mp3');
             _audioData = data.buffer.asUint8List();
             await _audioPlayer!.setSourceBytes(_audioData!);
-            print('Successfully loaded audio from 3150Hz.mp3');
+            print('Successfully loaded audio from assets/audios/3150Hz.mp3');
           } catch (e3) {
-            print('Failed to load from 3150Hz.mp3: $e3');
-            throw Exception('Could not load audio file from any path');
+            print('Failed to load from assets/audios/3150Hz.mp3: $e3');
+            // Last attempt - try without assets prefix
+            try {
+              final ByteData data = await rootBundle.load('3150Hz.mp3');
+              _audioData = data.buffer.asUint8List();
+              await _audioPlayer!.setSourceBytes(_audioData!);
+              print('Successfully loaded audio from 3150Hz.mp3');
+            } catch (e4) {
+              print('Failed to load from 3150Hz.mp3: $e4');
+              throw Exception('Could not load audio file from any path');
+            }
           }
         }
       }
