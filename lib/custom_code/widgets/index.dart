@@ -7,3 +7,4 @@ export 'u_i_toggle_button.dart' show UIToggleButton;
 export 'gradient_circle_overlay.dart' show GradientCircleOverlay;
 export 'contact_loader_widget.dart' show ContactLoaderWidget;
 export 'audio_toggle_button.dart' show AudioToggleButton;
+export 's_o_s_animated_widget.dart' show SOSAnimatedWidget;

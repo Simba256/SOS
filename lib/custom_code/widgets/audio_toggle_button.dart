@@ -25,7 +25,7 @@ const _onGradient = [
 const _shadowOn = Color(0x66ED4523); // Shadow color with some transparency
 
 // Morse code timing (unit in ms). Dot = 1×unit, dash = 3×unit.
-const int _unitMs = 1000;
+const int _unitMs = 600;
 
 // SOS pattern definition (list of durations for on/off pairs)
 final List<_Pulse> _sPattern = [
