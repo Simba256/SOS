@@ -16,10 +16,14 @@ class SOSAnimatedWidget extends StatefulWidget {
     super.key,
     this.width,
     this.height,
+    this.textSize,
+    this.letterSpacing,
   });
 
   final double? width;
   final double? height;
+  final double? textSize;
+  final double? letterSpacing;
 
   @override
   State<SOSAnimatedWidget> createState() => _SOSAnimatedWidgetState();
@@ -103,27 +107,49 @@ class _SOSAnimatedWidgetState extends State<SOSAnimatedWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final isPortrait = screenSize.height > screenSize.width;
+
+    // Calculate dimensions based on orientation
+    final rotatedMainAxis = isPortrait ? screenSize.height : screenSize.width;
+
+    // Use provided values or calculate defaults
+    final fontSize = widget.textSize ?? (rotatedMainAxis * 0.35);
+    final letterSpace = widget.letterSpacing ?? (rotatedMainAxis * 0.01);
+
     return Container(
       width: widget.width ?? double.infinity,
       height: widget.height ?? double.infinity,
       color: _bgColor,
       child: Align(
-        alignment: Alignment.topCenter, // Aligns to top of screen
-        child: Padding(
-          padding: const EdgeInsets.only(top: 86.0), // Reduced top padding
-          child: Transform.rotate(
-            angle: 90 * 3.1415926535 / 180, // rotate 90 degrees
-            child: Text(
-              'SOS',
-              maxLines: 1, // Force single line
-              overflow: TextOverflow.visible, // Don't clip if it overflows
-              softWrap: false, // Prevent text wrapping
-              style: TextStyle(
-                fontSize: 267, // Increased from 200 to 300
-                fontWeight:
-                    FontWeight.w500, // Reduced boldness from bold to w500
-                color: _textColor,
-                letterSpacing: 8.0, // Add letter spacing for better visibility
+        alignment: Alignment(0, -0.3), // -1 is top, 0 is center, 1 is bottom
+        child: Transform.rotate(
+          angle: 90 * 3.1415926535 / 180, // rotate text 90°
+          child: FittedBox(
+            fit: BoxFit.none, // Don't scale, just clip to intrinsic size
+            alignment: Alignment.center,
+            child: Container(
+              // Uncomment to see the exact bounding box during development
+              // decoration: BoxDecoration(
+              // border: Border.all(color: Colors.red, width: 2),
+              // ),
+              // Adjust for text metrics after rotation
+              transform: Matrix4.translationValues(-fontSize * 0.05, 0, 0),
+              child: Text(
+                'SOS',
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                softWrap: false,
+                overflow: TextOverflow.visible, // Ensure text isn't clipped
+                style: TextStyle(
+                  fontSize: fontSize,
+                  fontWeight: FontWeight.w500,
+                  color: _textColor,
+                  letterSpacing: letterSpace,
+                  height: 1.0, // Removes extra line height padding
+                  // Remove any default text padding
+                  leadingDistribution: TextLeadingDistribution.even,
+                ),
               ),
             ),
           ),
