@@ -82,7 +82,7 @@ class _SOSAnimatedWidgetState extends State<SOSAnimatedWidget> {
     setState(() {
       if (_isOn) {
         _bgColor = Colors.black;
-        _textColor = Colors.white;
+        _textColor = Colors.yellow;
       } else {
         _bgColor = Colors.white;
         _textColor = Colors.yellow;
