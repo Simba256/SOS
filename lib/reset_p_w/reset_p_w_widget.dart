@@ -8,8 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'reset_p_w_model.dart';
 export 'reset_p_w_model.dart';
 
-/// Create a page named Reset Password with Enter Your Email Field and after
-/// that a send via email button, make sure the UI is appealing!
+/// Reset PW via Email Generation Page
 class ResetPWWidget extends StatefulWidget {
   const ResetPWWidget({super.key});
 
@@ -201,7 +200,7 @@ class _ResetPWWidgetState extends State<ResetPWWidget> {
                                                   .fontStyle,
                                         ),
                                         color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
+                                            .secondaryBackground,
                                         fontSize: 16.0,
                                         letterSpacing: 0.0,
                                         fontWeight: FlutterFlowTheme.of(context)
@@ -265,6 +264,8 @@ class _ResetPWWidgetState extends State<ResetPWWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
                                       fontSize: 16.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FlutterFlowTheme.of(context)
@@ -275,6 +276,8 @@ class _ResetPWWidgetState extends State<ResetPWWidget> {
                                           .fontStyle,
                                     ),
                                 keyboardType: TextInputType.emailAddress,
+                                cursorColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
                                 validator: _model.emailTextControllerValidator
                                     .asValidator(context),
                               ),

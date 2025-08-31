@@ -135,6 +135,7 @@ final parametersBuilderMap =
   'LoadContactsV2': ParameterData.none(),
   'ProfileV2': ParameterData.none(),
   'MyPage': ParameterData.none(),
+  'ResetPWUpd': ParameterData.none(),
 };
 
 Map<String, dynamic> getInitialParameterData(Map<String, dynamic> data) {

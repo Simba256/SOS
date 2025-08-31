@@ -445,7 +445,7 @@ class _SignInV2WidgetState extends State<SignInV2Widget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(ResetPWWidget.routeName);
+                        context.pushNamed(ResetPWUpdWidget.routeName);
                       },
                       child: Text(
                         'Forgot Password?',

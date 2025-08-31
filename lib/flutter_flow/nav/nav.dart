@@ -192,6 +192,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: MyPageWidget.routeName,
           path: MyPageWidget.routePath,
           builder: (context, params) => MyPageWidget(),
+        ),
+        FFRoute(
+          name: ResetPWUpdWidget.routeName,
+          path: ResetPWUpdWidget.routePath,
+          builder: (context, params) => ResetPWUpdWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
