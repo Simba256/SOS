@@ -156,6 +156,12 @@ class FFAppState extends ChangeNotifier {
     FinalContacts.insert(index, value);
   }
 
+  bool _isModeChanged = false;
+  bool get isModeChanged => _isModeChanged;
+  set isModeChanged(bool value) {
+    _isModeChanged = value;
+  }
+
   final _getEmergencyContactsManager =
       FutureRequestManager<List<SearchContactsRow>>();
   Future<List<SearchContactsRow>> getEmergencyContacts({

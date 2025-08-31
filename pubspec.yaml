@@ -68,7 +68,7 @@ dependencies:
   flutter_contacts: ^1.1.9+2
   flutter_keyboard_visibility: 
     git:
-      url: https://github.com/wenkaifan0720/flutter_keyboard_visibility.git
+      url: https://github.com/FlutterFlow/flutter_keyboard_visibility.git
       path: flutter_keyboard_visibility
       ref: b39c1d0ca1671458e4daf3eea2ebe11741f9bcf3
   flutter_keyboard_visibility_linux: 1.0.0
@@ -76,7 +76,7 @@ dependencies:
   flutter_keyboard_visibility_platform_interface: 2.0.0
   flutter_keyboard_visibility_web: 
     git:
-      url: https://github.com/wenkaifan0720/flutter_keyboard_visibility.git
+      url: https://github.com/FlutterFlow/flutter_keyboard_visibility.git
       path: flutter_keyboard_visibility_web
       ref: b39c1d0ca1671458e4daf3eea2ebe11741f9bcf3
   flutter_keyboard_visibility_windows: 1.0.0

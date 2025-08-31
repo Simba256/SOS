@@ -32,6 +32,7 @@ class SOSAnimatedWidget extends StatefulWidget {
 class _Pulse {
   final int onUnits;
   final int offUnits;
+
   const _Pulse(this.onUnits, this.offUnits);
 }
 
@@ -43,10 +44,12 @@ class _SOSAnimatedWidgetState extends State<SOSAnimatedWidget> {
     _Pulse(1, 1),
     _Pulse(1, 1),
     _Pulse(1, 3),
+
     // O: dash dash dash
     _Pulse(3, 1),
     _Pulse(3, 1),
     _Pulse(3, 3),
+
     // S: dot dot dot
     _Pulse(1, 1),
     _Pulse(1, 1),
@@ -80,11 +83,11 @@ class _SOSAnimatedWidgetState extends State<SOSAnimatedWidget> {
     final duration = Duration(milliseconds: durationUnits * _unitDurationMs);
 
     setState(() {
-      if (_isOn) {
+      if (FFAppState().isModeChanged) {
         _bgColor = Colors.black;
-        _textColor = Colors.yellow;
+        _textColor = _isOn ? Colors.white : Colors.black;
       } else {
-        _bgColor = Colors.white;
+        _bgColor = _isOn ? Colors.black : Colors.white;
         _textColor = Colors.yellow;
       }
     });
@@ -122,32 +125,31 @@ class _SOSAnimatedWidgetState extends State<SOSAnimatedWidget> {
       height: widget.height ?? double.infinity,
       color: _bgColor,
       child: Align(
-        alignment: Alignment(0, -0.3), // -1 is top, 0 is center, 1 is bottom
+        alignment:
+            const Alignment(0, -0.3), // -1 is top, 0 is center, 1 is bottom
         child: Transform.rotate(
           angle: 90 * 3.1415926535 / 180, // rotate text 90°
           child: FittedBox(
             fit: BoxFit.none, // Don't scale, just clip to intrinsic size
             alignment: Alignment.center,
             child: Container(
-              // Uncomment to see the exact bounding box during development
+              // Uncomment to debug bounding box
               // decoration: BoxDecoration(
-              // border: Border.all(color: Colors.red, width: 2),
+              //   border: Border.all(color: Colors.red, width: 2),
               // ),
-              // Adjust for text metrics after rotation
               transform: Matrix4.translationValues(-fontSize * 0.05, 0, 0),
               child: Text(
                 'SOS',
                 maxLines: 1,
                 textAlign: TextAlign.center,
                 softWrap: false,
-                overflow: TextOverflow.visible, // Ensure text isn't clipped
+                overflow: TextOverflow.visible,
                 style: TextStyle(
                   fontSize: fontSize,
                   fontWeight: FontWeight.w500,
                   color: _textColor,
                   letterSpacing: letterSpace,
-                  height: 1.0, // Removes extra line height padding
-                  // Remove any default text padding
+                  height: 1.0,
                   leadingDistribution: TextLeadingDistribution.even,
                 ),
               ),

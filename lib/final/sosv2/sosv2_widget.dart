@@ -10,6 +10,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
 import 'sosv2_model.dart';
 export 'sosv2_model.dart';
 
@@ -81,6 +82,8 @@ class _Sosv2WidgetState extends State<Sosv2Widget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -175,7 +178,8 @@ class _Sosv2WidgetState extends State<Sosv2Widget>
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Align(
                               alignment: AlignmentDirectional(0.0, 0.0),
@@ -198,7 +202,7 @@ class _Sosv2WidgetState extends State<Sosv2Widget>
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  47.0, 0.0, 0.0, 0.0),
+                                  10.0, 0.0, 0.0, 0.0),
                               child: Container(
                                 width: 81.0,
                                 height: 81.0,
@@ -208,6 +212,37 @@ class _Sosv2WidgetState extends State<Sosv2Widget>
                                   torchIcon: Icon(
                                     FFIcons.ksound,
                                     color: Color(0xFF313A51),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  50.0, 0.0, 0.0, 0.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  if (FFAppState().isModeChanged) {
+                                    FFAppState().isModeChanged = false;
+                                    safeSetState(() {});
+                                  } else {
+                                    FFAppState().isModeChanged = true;
+                                    safeSetState(() {});
+                                  }
+                                },
+                                child: Container(
+                                  width: 81.0,
+                                  height: 81.0,
+                                  child: custom_widgets.ModeButton(
+                                    width: 81.0,
+                                    height: 81.0,
+                                    icon: Icon(
+                                      Icons.light_mode,
+                                      color: Color(0xFF313A51),
+                                    ),
                                   ),
                                 ),
                               ),
