@@ -316,6 +316,21 @@ class _ResetPWUpdWidgetState extends State<ResetPWUpdWidget> {
                                 email: _model.emailTextController.text,
                                 context: context,
                               );
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    content: Text('Email Sent!'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('Ok'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             },
                             text: 'Send Reset Link',
                             options: FFButtonOptions(
