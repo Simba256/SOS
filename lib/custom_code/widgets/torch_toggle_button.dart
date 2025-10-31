@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 
 import 'package:torch_light/torch_light.dart';
 
-// --- Constants for tree-shaking and styling ---
+// --- Constants for styling ---
 
 // Fully opaque colors for off and on states
 const _offColor = Color(0xFFDEDEDE); // Light gray, fully opaque
@@ -22,32 +22,6 @@ const _onGradient = [
   Color(0xFFED4523), // Dark orange-red, fully opaque
 ];
 const _shadowOn = Color(0x66ED4523); // Shadow color with some transparency
-
-// Morse code timing (unit in ms). Dot = 1×unit, dash = 3×unit.
-const int _unitMs = 250;
-
-// SOS pattern definition (list of durations for on/off pairs)
-final List<_Pulse> _sPattern = [
-  // S: dot dot dot
-  _Pulse(1, 0), _Pulse(0, 1),
-  _Pulse(1, 0), _Pulse(0, 1),
-  _Pulse(1, 0), _Pulse(0, 3),
-  // O: dash dash dash
-  _Pulse(3, 0), _Pulse(0, 1),
-  _Pulse(3, 0), _Pulse(0, 1),
-  _Pulse(3, 0), _Pulse(0, 3),
-  // S: dot dot dot
-  _Pulse(1, 0), _Pulse(0, 1),
-  _Pulse(1, 0), _Pulse(0, 1),
-  _Pulse(1, 0), _Pulse(0, 7), // 7-unit pause before repeating
-];
-
-/// Private data class for pulses (onUnits, offUnits).
-class _Pulse {
-  final int onUnits;
-  final int offUnits;
-  const _Pulse(this.onUnits, this.offUnits);
-}
 
 class TorchToggleButton extends StatefulWidget {
   const TorchToggleButton({
@@ -67,8 +41,7 @@ class TorchToggleButton extends StatefulWidget {
 
 class _TorchToggleButtonState extends State<TorchToggleButton> {
   bool _hasTorch = false;
-  bool _isOn = false; // "steady on" or SOS mode (just controls styling)
-  bool _isSosMode = false; // true when SOS blinking is active
+  bool _isOn = false; // button styling state
 
   @override
   void initState() {
@@ -79,52 +52,67 @@ class _TorchToggleButtonState extends State<TorchToggleButton> {
     }).catchError((_) {
       if (mounted) setState(() => _hasTorch = false);
     });
+
+    // Listen to app state changes
+    FFAppState().addListener(_onSOSStateChanged);
   }
 
   @override
   void dispose() {
+    // Remove listener and ensure torch is off
+    FFAppState().removeListener(_onSOSStateChanged);
+    if (_isOn) {
+      TorchLight.disableTorch();
+      FFAppState().isTorchEnabled = false;
+    }
     super.dispose();
-    _cancelSos = true; // ensure any running loop is canceled
   }
 
-  bool _cancelSos = false;
+  void _onSOSStateChanged() {
+    // This is called immediately when FFAppState updates
+    if (!mounted || !_hasTorch) return;
+
+    final currentSOSState = FFAppState().currentSOSState;
+    final torchEnabled = FFAppState().isTorchEnabled;
+
+    print(
+        '[TORCH] Listener called: currentSOSState=$currentSOSState, torchEnabled=$torchEnabled at ${DateTime.now().millisecondsSinceEpoch}');
+
+    // Only control torch if it's enabled
+    if (torchEnabled) {
+      try {
+        if (currentSOSState) {
+          TorchLight.enableTorch();
+          print('[TORCH] Enabled torch');
+        } else {
+          TorchLight.disableTorch();
+          print('[TORCH] Disabled torch');
+        }
+      } catch (e) {
+        print('[TORCH] Error: $e');
+      }
+    }
+  }
 
   void _handleTap() {
     if (!_hasTorch) return;
 
-    if (_isSosMode) {
-      // Tap during SOS mode: cancel it
-      _cancelSos = true;
-      TorchLight.disableTorch(); // turn off immediately
+    if (_isOn) {
+      // Turn off
+      TorchLight.disableTorch();
+      FFAppState().isTorchEnabled = false;
       setState(() {
-        _isSosMode = false;
         _isOn = false;
       });
     } else {
-      // Enter SOS mode
+      // Turn on - will follow SOS pattern automatically
+      FFAppState().isTorchEnabled = true;
       setState(() {
         _isOn = true;
-        _isSosMode = true;
       });
-      _cancelSos = false;
-      _startSosLoop();
+      // Immediately sync to current state
+      _onSOSStateChanged();
     }
-  }
-
-  Future<void> _startSosLoop() async {
-    while (mounted && !_cancelSos) {
-      for (final p in _sPattern) {
-        if (_cancelSos) break;
-        if (p.onUnits > 0) {
-          await TorchLight.enableTorch();
-          await Future.delayed(Duration(milliseconds: p.onUnits * _unitMs));
-        }
-        if (_cancelSos) break;
-        await TorchLight.disableTorch();
-        await Future.delayed(Duration(milliseconds: p.offUnits * _unitMs));
-      }
-    }
-    await TorchLight.disableTorch();
   }
 
   @override

@@ -221,22 +221,6 @@ class _SignUpV2WidgetState extends State<SignUpV2Widget> {
                                     ),
                                   ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    child: CachedNetworkImage(
-                                      fadeInDuration:
-                                          Duration(milliseconds: 500),
-                                      fadeOutDuration:
-                                          Duration(milliseconds: 500),
-                                      imageUrl: '',
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
                               ],
                             ),
                           ),
@@ -862,10 +846,6 @@ class _SignUpV2WidgetState extends State<SignUpV2Widget> {
                       ),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          FFAppState().Name = valueOrDefault<String>(
-                            _model.nameFieldTextController.text,
-                            'Basim',
-                          );
                           GoRouter.of(context).prepareAuthEvent();
                           if (_model.passwordFieldTextController.text !=
                               _model.confirmPasswordFieldTextController.text) {
@@ -887,6 +867,14 @@ class _SignUpV2WidgetState extends State<SignUpV2Widget> {
                           if (user == null) {
                             return;
                           }
+
+                          // Set the user's name after successful account creation
+                          FFAppState().update(() {
+                            FFAppState().Name = valueOrDefault<String>(
+                              _model.nameFieldTextController.text,
+                              'Basim',
+                            );
+                          });
 
                           context.goNamedAuth(
                               HomeV2Widget.routeName, context.mounted);

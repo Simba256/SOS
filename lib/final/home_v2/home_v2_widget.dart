@@ -459,7 +459,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -471,7 +471,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -630,7 +630,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -642,7 +642,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -801,7 +801,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -813,7 +813,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -989,7 +989,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -1001,7 +1001,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -1160,7 +1160,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -1172,7 +1172,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -1332,7 +1332,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -1344,7 +1344,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -1539,7 +1539,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -1551,7 +1551,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -1710,7 +1710,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -1722,7 +1722,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -1881,7 +1881,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -1893,7 +1893,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -2069,7 +2069,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -2081,7 +2081,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -2240,7 +2240,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -2252,7 +2252,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -2412,7 +2412,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -2424,7 +2424,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -2615,7 +2615,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -2627,7 +2627,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -2790,7 +2790,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -2802,7 +2802,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -2961,7 +2961,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -2973,7 +2973,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -3149,7 +3149,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -3161,7 +3161,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -3320,7 +3320,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -3332,7 +3332,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -3492,7 +3492,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -3504,7 +3504,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -3695,7 +3695,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -3707,7 +3707,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -3866,7 +3866,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -3878,7 +3878,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -4041,7 +4041,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -4053,7 +4053,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -4229,7 +4229,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -4241,7 +4241,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -4400,7 +4400,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -4412,7 +4412,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -4572,7 +4572,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -4584,7 +4584,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -4775,7 +4775,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -4787,7 +4787,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -4946,7 +4946,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -4958,7 +4958,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -5117,7 +5117,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -5129,7 +5129,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -5309,7 +5309,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -5321,7 +5321,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -5480,7 +5480,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -5492,7 +5492,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -5652,7 +5652,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -5664,7 +5664,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -5855,7 +5855,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -5867,7 +5867,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -6026,7 +6026,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -6038,7 +6038,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -6197,7 +6197,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -6209,7 +6209,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -6385,7 +6385,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -6397,7 +6397,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -6560,7 +6560,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -6572,7 +6572,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -6732,7 +6732,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -6744,7 +6744,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -6934,7 +6934,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -6946,7 +6946,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -7105,7 +7105,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -7117,7 +7117,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -7276,7 +7276,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -7288,7 +7288,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -7463,7 +7463,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -7475,7 +7475,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -7634,7 +7634,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -7646,7 +7646,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -7810,7 +7810,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(
@@ -7822,7 +7822,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                   valueOrDefault<double>(
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        0.02,
+                                                        0.015,
                                                     0.0,
                                                   ),
                                                   valueOrDefault<double>(

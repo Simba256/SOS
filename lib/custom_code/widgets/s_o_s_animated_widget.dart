@@ -37,7 +37,7 @@ class _Pulse {
 }
 
 class _SOSAnimatedWidgetState extends State<SOSAnimatedWidget> {
-  static const int _unitDurationMs = 400;
+  static const int _unitDurationMs = 1000;
 
   final List<_Pulse> _sosPattern = const [
     // S: dot dot dot
@@ -83,6 +83,13 @@ class _SOSAnimatedWidgetState extends State<SOSAnimatedWidget> {
     final duration = Duration(milliseconds: durationUnits * _unitDurationMs);
 
     setState(() {
+      // Update global SOS state for synchronized components
+      print(
+          '[VISUAL] Setting currentSOSState to $_isOn at ${DateTime.now().millisecondsSinceEpoch}');
+      FFAppState().update(() {
+        FFAppState().currentSOSState = _isOn;
+      });
+
       if (FFAppState().isModeChanged) {
         _bgColor = Colors.black;
         _textColor = _isOn ? Colors.white : Colors.black;

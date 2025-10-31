@@ -30,6 +30,8 @@ class FFAppState extends ChangeNotifier {
 
   void update(VoidCallback callback) {
     callback();
+    print(
+        '[APP_STATE] notifyListeners() called, currentSOSState=$_currentSOSState at ${DateTime.now().millisecondsSinceEpoch}');
     notifyListeners();
   }
 
@@ -160,6 +162,25 @@ class FFAppState extends ChangeNotifier {
   bool get isModeChanged => _isModeChanged;
   set isModeChanged(bool value) {
     _isModeChanged = value;
+  }
+
+  // Synchronized SOS state
+  bool _currentSOSState = false;
+  bool get currentSOSState => _currentSOSState;
+  set currentSOSState(bool value) {
+    _currentSOSState = value;
+  }
+
+  bool _isTorchEnabled = false;
+  bool get isTorchEnabled => _isTorchEnabled;
+  set isTorchEnabled(bool value) {
+    _isTorchEnabled = value;
+  }
+
+  bool _isAudioEnabled = false;
+  bool get isAudioEnabled => _isAudioEnabled;
+  set isAudioEnabled(bool value) {
+    _isAudioEnabled = value;
   }
 
   final _getEmergencyContactsManager =

@@ -89,66 +89,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? HomeV2Widget() : SignInV2Widget(),
         ),
         FFRoute(
-          name: HomePageWidget.routeName,
-          path: HomePageWidget.routePath,
-          builder: (context, params) => HomePageWidget(),
-        ),
-        FFRoute(
-          name: Auth1Widget.routeName,
-          path: Auth1Widget.routePath,
-          builder: (context, params) => Auth1Widget(),
-        ),
-        FFRoute(
-          name: SosWidget.routeName,
-          path: SosWidget.routePath,
-          builder: (context, params) => SosWidget(),
-        ),
-        FFRoute(
-          name: EditContacts1Widget.routeName,
-          path: EditContacts1Widget.routePath,
-          builder: (context, params) => EditContacts1Widget(),
-        ),
-        FFRoute(
-          name: HomepageNewWidget.routeName,
-          path: HomepageNewWidget.routePath,
-          builder: (context, params) => HomepageNewWidget(),
-        ),
-        FFRoute(
-          name: MyContactsWidget.routeName,
-          path: MyContactsWidget.routePath,
-          builder: (context, params) => MyContactsWidget(),
-        ),
-        FFRoute(
-          name: SOSActiveWidget.routeName,
-          path: SOSActiveWidget.routePath,
-          builder: (context, params) => SOSActiveWidget(),
-        ),
-        FFRoute(
-          name: AppsettingsWidget.routeName,
-          path: AppsettingsWidget.routePath,
-          builder: (context, params) => AppsettingsWidget(),
-        ),
-        FFRoute(
-          name: TestImageWidget.routeName,
-          path: TestImageWidget.routePath,
-          builder: (context, params) => TestImageWidget(),
-        ),
-        FFRoute(
-          name: TempWidget.routeName,
-          path: TempWidget.routePath,
-          builder: (context, params) => TempWidget(),
-        ),
-        FFRoute(
-          name: ResetPWWidget.routeName,
-          path: ResetPWWidget.routePath,
-          builder: (context, params) => ResetPWWidget(),
-        ),
-        FFRoute(
-          name: SosybWidget.routeName,
-          path: SosybWidget.routePath,
-          builder: (context, params) => SosybWidget(),
-        ),
-        FFRoute(
           name: SignInV2Widget.routeName,
           path: SignInV2Widget.routePath,
           builder: (context, params) => SignInV2Widget(),

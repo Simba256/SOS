@@ -24,32 +24,6 @@ const _onGradient = [
 ];
 const _shadowOn = Color(0x66ED4523); // Shadow color with some transparency
 
-// Morse code timing (unit in ms). Dot = 1×unit, dash = 3×unit.
-const int _unitMs = 600;
-
-// SOS pattern definition (list of durations for on/off pairs)
-final List<_Pulse> _sPattern = [
-  // S: dot dot dot
-  _Pulse(1, 0), _Pulse(0, 1),
-  _Pulse(1, 0), _Pulse(0, 1),
-  _Pulse(1, 0), _Pulse(0, 3),
-  // O: dash dash dash
-  _Pulse(3, 0), _Pulse(0, 1),
-  _Pulse(3, 0), _Pulse(0, 1),
-  _Pulse(3, 0), _Pulse(0, 3),
-  // S: dot dot dot
-  _Pulse(1, 0), _Pulse(0, 1),
-  _Pulse(1, 0), _Pulse(0, 1),
-  _Pulse(1, 0), _Pulse(0, 7), // 7-unit pause before repeating
-];
-
-/// Private data class for pulses (onUnits, offUnits).
-class _Pulse {
-  final int onUnits;
-  final int offUnits;
-  const _Pulse(this.onUnits, this.offUnits);
-}
-
 class AudioToggleButton extends StatefulWidget {
   const AudioToggleButton({
     super.key,
@@ -68,17 +42,18 @@ class AudioToggleButton extends StatefulWidget {
 
 class _AudioToggleButtonState extends State<AudioToggleButton> {
   AudioPlayer? _audioPlayer;
-  bool _isOn = false; // "steady on" or SOS mode (just controls styling)
-  bool _isSosMode = false; // true when SOS blinking is active
+  bool _isOn = false; // button styling state
   bool _isInitialized = false;
   String? _errorMessage;
-  bool _cancelSos = false;
   Uint8List? _audioData;
 
   @override
   void initState() {
     super.initState();
     _initializeAudio();
+
+    // Listen to app state changes
+    FFAppState().addListener(_onSOSStateChanged);
   }
 
   Future<void> _initializeAudio() async {
@@ -149,6 +124,35 @@ class _AudioToggleButtonState extends State<AudioToggleButton> {
     }
   }
 
+  void _onSOSStateChanged() {
+    // This is called immediately when FFAppState updates
+    if (!mounted || !_isInitialized || _audioPlayer == null) return;
+
+    final currentSOSState = FFAppState().currentSOSState;
+    final audioEnabled = FFAppState().isAudioEnabled;
+
+    print(
+        '[AUDIO] Listener called: currentSOSState=$currentSOSState, audioEnabled=$audioEnabled at ${DateTime.now().millisecondsSinceEpoch}');
+
+    // Only control audio if it's enabled
+    if (audioEnabled) {
+      try {
+        if (currentSOSState) {
+          // Start playing audio
+          _audioPlayer!.seek(Duration.zero);
+          _audioPlayer!.resume();
+          print('[AUDIO] Started playing');
+        } else {
+          // Stop audio
+          _audioPlayer!.pause();
+          print('[AUDIO] Paused');
+        }
+      } catch (e) {
+        print('[AUDIO] Error controlling audio: $e');
+      }
+    }
+  }
+
   void _handleTap() {
     if (!_isInitialized || _audioPlayer == null) {
       // Try to initialize again on tap if failed
@@ -156,54 +160,32 @@ class _AudioToggleButtonState extends State<AudioToggleButton> {
       return;
     }
 
-    if (_isSosMode) {
-      // Tap during SOS mode: cancel it
-      _cancelSos = true;
-      _audioPlayer?.stop(); // stop audio immediately
+    if (_isOn) {
+      // Turn off
+      _audioPlayer?.stop();
+      FFAppState().isAudioEnabled = false;
       setState(() {
-        _isSosMode = false;
         _isOn = false;
       });
     } else {
-      // Enter SOS mode
+      // Turn on - will follow SOS pattern automatically
+      FFAppState().isAudioEnabled = true;
       setState(() {
         _isOn = true;
-        _isSosMode = true;
       });
-      _cancelSos = false;
-      _startSosLoop();
+      // Immediately sync to current state
+      _onSOSStateChanged();
     }
-  }
-
-  Future<void> _startSosLoop() async {
-    while (mounted && !_cancelSos && _audioPlayer != null) {
-      for (final p in _sPattern) {
-        if (_cancelSos) break;
-        if (p.onUnits > 0) {
-          try {
-            // Reset and play from beginning each time
-            await _audioPlayer!.seek(Duration.zero);
-            await _audioPlayer!.resume();
-            await Future.delayed(Duration(milliseconds: p.onUnits * _unitMs));
-          } catch (e) {
-            print('Error playing audio: $e');
-          }
-        }
-        if (_cancelSos) break;
-        try {
-          await _audioPlayer!.pause();
-        } catch (e) {
-          print('Error pausing audio: $e');
-        }
-        await Future.delayed(Duration(milliseconds: p.offUnits * _unitMs));
-      }
-    }
-    _audioPlayer?.stop();
   }
 
   @override
   void dispose() {
-    _cancelSos = true; // ensure any running loop is canceled
+    // Remove listener and ensure audio is off
+    FFAppState().removeListener(_onSOSStateChanged);
+    if (_isOn) {
+      _audioPlayer?.stop();
+      FFAppState().isAudioEnabled = false;
+    }
     _audioPlayer?.dispose();
     super.dispose();
   }
