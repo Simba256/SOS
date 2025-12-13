@@ -95,14 +95,13 @@ Alternative URLs that also work:
 
 ## 🛠️ Customization
 
-### Update Contact Email
-In both `index.html` and `terms.html`, update:
-```html
-<p><strong>Email:</strong> support@chameleon-ideas.com</p>
-```
+### Contact Information
+Already configured with:
+- **Email:** info@chameleon-ideas.com
+- **Address:** 320 Matheson Blvd W Suite 211, Mississauga, ON L5R 3R1, Canada
+- **Organization:** Chameleon Ideas
 
-### Update Company Information
-Replace "Chameleon Ideas" and "Karachi, Sindh, Pakistan" with your information if needed.
+Update these in `index.html` and `terms.html` if you need to change them.
 
 ### Custom Domain (Optional)
 1. Purchase a domain (e.g., `sos-app.com`)
