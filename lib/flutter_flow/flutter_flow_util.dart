@@ -1,7 +1,8 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:collection/collection.dart';
@@ -267,28 +268,71 @@ Future<LatLng> getCurrentUserLocation(
 }
 
 Future<LatLng?> queryCurrentUserLocation() async {
-  final serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    return Future.error('Location services are disabled.');
-  }
-
-  var permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      return Future.error('Location permissions are denied');
+  try {
+    final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
     }
-  }
 
-  if (permission == LocationPermission.deniedForever) {
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
-  }
+    var permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
 
-  final position = await Geolocator.getCurrentPosition();
-  return position.latitude != 0 && position.longitude != 0
-      ? LatLng(position.latitude, position.longitude)
-      : null;
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
+    try {
+      // Get position with explicit accuracy settings and timeout for better cross-device compatibility
+      final position = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+          timeLimit: Duration(seconds: 15),
+        ),
+      );
+      return position.latitude != 0 && position.longitude != 0
+          ? LatLng(position.latitude, position.longitude)
+          : null;
+    } on TimeoutException catch (e) {
+      if (kDebugMode) {
+        print('Location timeout, trying with last known position: $e');
+      }
+      // Fallback to last known position if getCurrentPosition times out
+      final lastPosition = await Geolocator.getLastKnownPosition();
+      if (lastPosition != null &&
+          lastPosition.latitude != 0 &&
+          lastPosition.longitude != 0) {
+        return LatLng(lastPosition.latitude, lastPosition.longitude);
+      }
+      // If no last known position, try again with lower accuracy
+      try {
+        final position = await Geolocator.getCurrentPosition(
+          locationSettings: const LocationSettings(
+            accuracy: LocationAccuracy.medium,
+            timeLimit: Duration(seconds: 10),
+          ),
+        );
+        return position.latitude != 0 && position.longitude != 0
+            ? LatLng(position.latitude, position.longitude)
+            : null;
+      } catch (e2) {
+        if (kDebugMode) {
+          print('Failed to get location with medium accuracy: $e2');
+        }
+        return Future.error('Unable to determine location after timeout');
+      }
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error getting current location: $e');
+    }
+    return Future.error('Error getting location: $e');
+  }
 }
 
 extension FFTextEditingControllerExt on TextEditingController? {

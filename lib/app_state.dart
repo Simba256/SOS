@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'flutter_flow/request_manager.dart';
 import '/backend/backend.dart';
@@ -30,8 +31,10 @@ class FFAppState extends ChangeNotifier {
 
   void update(VoidCallback callback) {
     callback();
-    print(
-        '[APP_STATE] notifyListeners() called, currentSOSState=$_currentSOSState at ${DateTime.now().millisecondsSinceEpoch}');
+    if (kDebugMode) {
+      print(
+          '[APP_STATE] notifyListeners() called, currentSOSState=$_currentSOSState at ${DateTime.now().millisecondsSinceEpoch}');
+    }
     notifyListeners();
   }
 

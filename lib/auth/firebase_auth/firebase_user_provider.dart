@@ -24,11 +24,9 @@ class SosAppFirebaseUser extends BaseAuthUser {
 
   @override
   Future? updateEmail(String email) async {
-    try {
-      await user?.updateEmail(email);
-    } catch (_) {
-      await user?.verifyBeforeUpdateEmail(email);
-    }
+    // Using verifyBeforeUpdateEmail as it's the recommended approach
+    // This sends a verification email before updating the email address
+    await user?.verifyBeforeUpdateEmail(email);
   }
 
   @override

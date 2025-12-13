@@ -1039,7 +1039,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.carCrash,
+                                                    FontAwesomeIcons.carBurst,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -1382,7 +1382,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.firstAid,
+                                                    FontAwesomeIcons.kitMedical,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -2119,7 +2119,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.carCrash,
+                                                    FontAwesomeIcons.carBurst,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -2462,7 +2462,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.firstAid,
+                                                    FontAwesomeIcons.kitMedical,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -3199,7 +3199,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.carCrash,
+                                                    FontAwesomeIcons.carBurst,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -3542,7 +3542,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.firstAid,
+                                                    FontAwesomeIcons.kitMedical,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -4279,7 +4279,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.carCrash,
+                                                    FontAwesomeIcons.carBurst,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -4622,7 +4622,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.firstAid,
+                                                    FontAwesomeIcons.kitMedical,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -5359,7 +5359,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.carCrash,
+                                                    FontAwesomeIcons.carBurst,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -5702,7 +5702,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.firstAid,
+                                                    FontAwesomeIcons.kitMedical,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -6435,7 +6435,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.carCrash,
+                                                    FontAwesomeIcons.carBurst,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -6782,7 +6782,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.firstAid,
+                                                    FontAwesomeIcons.kitMedical,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -7513,7 +7513,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.carCrash,
+                                                    FontAwesomeIcons.carBurst,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,
@@ -7860,7 +7860,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                                       AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: FaIcon(
-                                                    FontAwesomeIcons.firstAid,
+                                                    FontAwesomeIcons.kitMedical,
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primaryText,

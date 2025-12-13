@@ -1,12 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.mycompany.sosapp" xmlns:tools="http://schemas.android.com/tools">
   <!-- Base permission for internet access -->
   <uses-permission android:name="android.permission.INTERNET"/>
+  <!-- Permission to keep screen awake (critical for emergency SOS app) -->
+  <uses-permission android:name="android.permission.WAKE_LOCK"/>
   <!-- Permissions for location services -->
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+  <!-- Background location for Android 10+ (API 29+) -->
+  <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
   <!-- Permission to send SMS (for Twilio or direct sending) -->
   <uses-permission android:name="android.permission.SEND_SMS"/>
   <uses-permission android:name="android.permission.READ_CONTACTS"/>
+  <!-- Battery optimization exemption (critical for background emergency features) -->
+  <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
   <!--
       This section is required for apps targeting Android 11 (API 30) or higher.
       It declares that your app intends to interact with other apps (like WhatsApp).
@@ -18,7 +24,7 @@
   <application
     android:label="SOS-APP"
     tools:replace="android:label"
-    android:icon="@mipmap/ic_launcher"
+    android:icon="@mipmap/launcher_icon"
     android:requestLegacyExternalStorage="true"
   >
     <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">

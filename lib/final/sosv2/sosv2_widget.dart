@@ -3,13 +3,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
-import 'dart:math' as math;
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'sosv2_model.dart';
 export 'sosv2_model.dart';
@@ -99,66 +96,6 @@ class _Sosv2WidgetState extends State<Sosv2Widget>
             height: double.infinity,
             child: Stack(
               children: [
-                if (false)
-                  Stack(
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                          ),
-                        ).animateOnPageLoad(
-                            animationsMap['containerOnPageLoadAnimation']!),
-                      ),
-                      Align(
-                        alignment: AlignmentDirectional(0.0, -1.0),
-                        child: Container(
-                          height: 600.0,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                          ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Transform.rotate(
-                              angle: 90.0 * (math.pi / 180),
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: AutoSizeText(
-                                  'SOS',
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  minFontSize: 183.0,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyLarge
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w800,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLarge
-                                                  .fontStyle,
-                                        ),
-                                        color: Colors.white,
-                                        fontSize: 183.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w800,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .fontStyle,
-                                      ),
-                                ),
-                              ),
-                            ).animateOnPageLoad(
-                                animationsMap['transformOnPageLoadAnimation']!),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 Container(
                   width: double.infinity,
                   height: double.infinity,
@@ -247,31 +184,6 @@ class _Sosv2WidgetState extends State<Sosv2Widget>
                                 ),
                               ),
                             ),
-                            if (false)
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  _model.soundPlayer ??= AudioPlayer();
-                                  if (_model.soundPlayer!.playing) {
-                                    await _model.soundPlayer!.stop();
-                                  }
-                                  _model.soundPlayer!.setVolume(1.0);
-                                  _model.soundPlayer!
-                                      .setAsset('assets/audios/3150Hz.mp3')
-                                      .then((_) => _model.soundPlayer!.play());
-                                },
-                                child: Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                  ),
-                                ),
-                              ),
                           ],
                         ),
                       ),

@@ -74,9 +74,18 @@ android {
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            // Use release signing if key.properties exists, otherwise fall back to debug
+            // To set up release signing:
+            // 1. Create a key.properties file in android/ directory
+            // 2. Add the following properties:
+            //    storePassword=<your-store-password>
+            //    keyPassword=<your-key-password>
+            //    keyAlias=<your-key-alias>
+            //    storeFile=<path-to-keystore-file>
+            signingConfig keystorePropertiesFile.exists() ? signingConfigs.release : signingConfigs.debug
+
+            // Enable ProGuard for code minification and obfuscation
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
