@@ -159,12 +159,15 @@ class _ProfileV2WidgetState extends State<ProfileV2Widget> {
                             }
                           }
 
+                          // Upload image to Firebase Storage and update Firestore
                           _model.recentlyUploadedImage =
-                              await actions.convertImageToBase64(
+                              await actions.uploadProfileImage(
                             _model.uploadedLocalFile_uploadData06v,
                           );
-                          FFAppState().UserImage =
-                              _model.recentlyUploadedImage!;
+                          if (_model.recentlyUploadedImage != null) {
+                            FFAppState().UserImage =
+                                _model.recentlyUploadedImage!;
+                          }
                           safeSetState(() {});
 
                           safeSetState(() {});
@@ -176,7 +179,7 @@ class _ProfileV2WidgetState extends State<ProfileV2Widget> {
                             width: 100.0,
                             height: 100.0,
                             contactName: FFAppState().Name,
-                            imageBase64: FFAppState().UserImage,
+                            imageUrl: FFAppState().UserImage,
                           ),
                         ),
                       ),

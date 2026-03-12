@@ -159,13 +159,8 @@ class _SignUpV2WidgetState extends State<SignUpV2Widget> {
                               }
                             }
 
-                            _model.uploadedUserImage =
-                                await actions.convertImageToBase64(
-                              _model
-                                  .uploadedLocalFile_uploadedImageWidgetStateSignUp,
-                            );
-                            FFAppState().UserImage = _model.uploadedUserImage!;
-
+                            // Image will be uploaded after account creation
+                            // Just trigger a rebuild to show the preview
                             safeSetState(() {});
                           },
                           child: Container(
@@ -874,6 +869,20 @@ class _SignUpV2WidgetState extends State<SignUpV2Widget> {
                               'Basim',
                             );
                           });
+
+                          // Upload profile image to Firebase Storage if one was selected
+                          if (_model
+                                  .uploadedLocalFile_uploadedImageWidgetStateSignUp
+                                  .bytes?.isNotEmpty ??
+                              false) {
+                            final photoUrl = await actions.uploadProfileImage(
+                              _model
+                                  .uploadedLocalFile_uploadedImageWidgetStateSignUp,
+                            );
+                            if (photoUrl != null) {
+                              FFAppState().UserImage = photoUrl;
+                            }
+                          }
 
                           context.goNamedAuth(
                               HomeV2Widget.routeName, context.mounted);

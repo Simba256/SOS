@@ -3,3 +3,4 @@ export 'emergency_bulk_sms.dart' show emergencyBulkSms;
 export 'read_contacts.dart' show readContacts;
 export 'get_contacts.dart' show getContacts;
 export 'fetch_phone_contacts.dart' show fetchPhoneContacts;
+export 'upload_profile_image.dart' show uploadProfileImage;

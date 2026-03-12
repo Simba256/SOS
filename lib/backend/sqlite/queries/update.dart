@@ -6,13 +6,12 @@ Future performAddContactNewFormat(
   String? name,
   String? phone,
   String? photo,
+  required String userId,
 }) {
-  final query = '''
-INSERT INTO contacts (name, phone, photo_url)
-VALUES (:name, :phone, :photo);
-
-''';
-  return database.rawQuery(query);
+  return database.rawInsert(
+    'INSERT INTO contacts (name, phone, photo_url, user_id) VALUES (?, ?, ?, ?)',
+    [name, phone, photo, userId],
+  );
 }
 
 /// END ADDCONTACTNEWFORMAT
@@ -21,11 +20,12 @@ VALUES (:name, :phone, :photo);
 Future performDeleteContact(
   Database database, {
   String? phoneNumber,
+  required String userId,
 }) {
-  final query = '''
-DELETE FROM contacts WHERE phone = '${phoneNumber}';
-''';
-  return database.rawQuery(query);
+  return database.rawDelete(
+    'DELETE FROM contacts WHERE phone = ? AND user_id = ?',
+    [phoneNumber, userId],
+  );
 }
 
 /// END DELETE CONTACT
@@ -35,11 +35,12 @@ Future performAddContactWithoutPhoto(
   Database database, {
   String? name,
   String? phone,
+  required String userId,
 }) {
-  final query = '''
-INSERT INTO contacts (name, phone) VALUES ('${name}', '${phone}');
-''';
-  return database.rawQuery(query);
+  return database.rawInsert(
+    'INSERT INTO contacts (name, phone, user_id) VALUES (?, ?, ?)',
+    [name, phone, userId],
+  );
 }
 
 /// END ADDCONTACTWITHOUTPHOTO
@@ -50,11 +51,12 @@ Future performAddContactOldFormat(
   String? name,
   String? phone,
   String? photo,
+  required String userId,
 }) {
-  final query = '''
-INSERT INTO contacts (name, phone, photo_url) VALUES ('${name}', '${phone}', '${photo}');
-''';
-  return database.rawQuery(query);
+  return database.rawInsert(
+    'INSERT INTO contacts (name, phone, photo_url, user_id) VALUES (?, ?, ?, ?)',
+    [name, phone, photo, userId],
+  );
 }
 
 /// END ADDCONTACTOLDFORMAT
@@ -63,11 +65,12 @@ INSERT INTO contacts (name, phone, photo_url) VALUES ('${name}', '${phone}', '${
 Future performDeleteContactWithName(
   Database database, {
   String? name,
+  required String userId,
 }) {
-  final query = '''
-DELETE FROM contacts WHERE name = '${name}';
-''';
-  return database.rawQuery(query);
+  return database.rawDelete(
+    'DELETE FROM contacts WHERE name = ? AND user_id = ?',
+    [name, userId],
+  );
 }
 
 /// END DELETE CONTACTWITHNAME

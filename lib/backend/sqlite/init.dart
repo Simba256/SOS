@@ -28,7 +28,19 @@ Future<Database> initializeDatabaseFromDbFile(
     );
     await File(databasePath).writeAsBytes(databaseBytes, flush: true);
   }
-  // Initialize the SQLite database.
-  final database = await openDatabase(databasePath);
+  // Initialize the SQLite database with migration support.
+  final database = await openDatabase(
+    databasePath,
+    version: 2,
+    onUpgrade: (db, oldVersion, newVersion) async {
+      if (oldVersion < 2) {
+        // Delete existing contacts (clean slate for user isolation)
+        await db.execute('DELETE FROM contacts');
+        // Add user_id column for multi-user data isolation
+        await db.execute(
+            'ALTER TABLE contacts ADD COLUMN user_id TEXT NOT NULL DEFAULT ""');
+      }
+    },
+  );
   return database;
 }

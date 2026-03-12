@@ -73,7 +73,10 @@ class _MyAppState extends State<MyApp> {
           .toList();
   late Stream<BaseAuthUser> userStream;
 
-  final authUserSub = authenticatedUserStream.listen((_) {});
+  final authUserSub = authenticatedUserStream.listen((_) {
+    // Reload user image from Firestore when user document updates
+    FFAppState().reloadUserImage();
+  });
   final fcmTokenSub = fcmTokenUserStream.listen((_) {});
 
   @override
@@ -85,6 +88,13 @@ class _MyAppState extends State<MyApp> {
     userStream = sosAppFirebaseUserStream()
       ..listen((user) {
         _appStateNotifier.update(user);
+        // Load user-specific data when user logs in
+        if (user.loggedIn) {
+          FFAppState().loadUserData();
+        } else {
+          // Clear in-memory user data on logout
+          FFAppState().clearUserData();
+        }
       });
     jwtTokenStream.listen((_) {});
     Future.delayed(

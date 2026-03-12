@@ -52,7 +52,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
       if ((_model.apiResultoru?.succeeded ?? true)) {
         FFAppState().UserLocation = ReverseGeocodeCall.addressString(
           (_model.apiResultoru?.jsonBody ?? ''),
-        )!;
+        ) ?? 'Location found';
         safeSetState(() {});
       } else {
         FFAppState().UserLocation = 'Error Finding Location';
@@ -172,7 +172,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                 FFAppState().Name,
                                 'Karin',
                               ),
-                              imageBase64: FFAppState().UserImage,
+                              imageUrl: FFAppState().UserImage,
                             ),
                           ),
                         ),
@@ -7963,18 +7963,84 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        currentUserLocationValue = await getCurrentUserLocation(
-                            defaultLocation: LatLng(0.0, 0.0));
-                        _model.allContacts =
-                            await SQLiteManager.instance.readContacts();
-                        await actions.emergencyBulkSms(
-                          _model.allContacts
-                              ?.map((e) => e.phone)
-                              .toList()
-                              .toList(),
-                          currentUserLocationValue,
-                          _model.selectedIndex,
+                        // Show confirmation dialog before sending SOS
+                        final confirmed = await showDialog<bool>(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title: Text('Send Emergency Alert?'),
+                              content: Text(
+                                'This will send an SMS with your location to all your emergency contacts.',
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(alertDialogContext).pop(false),
+                                  child: Text('Cancel'),
+                                ),
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.of(alertDialogContext).pop(true),
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: Colors.white,
+                                    backgroundColor: Color(0xFFEA4521),
+                                  ),
+                                  child: Text('Send SOS'),
+                                ),
+                              ],
+                            );
+                          },
                         );
+                        if (confirmed != true) {
+                          return;
+                        }
+                        try {
+                          currentUserLocationValue = await getCurrentUserLocation(
+                              defaultLocation: LatLng(0.0, 0.0));
+
+                          // Validate location
+                          final isValidLocation = currentUserLocationValue != null &&
+                              !(currentUserLocationValue!.latitude == 0.0 &&
+                                currentUserLocationValue!.longitude == 0.0);
+
+                          _model.allContacts =
+                              await SQLiteManager.instance.readContacts();
+
+                          if (_model.allContacts == null || _model.allContacts!.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('No emergency contacts found'),
+                                backgroundColor: Colors.orange,
+                              ),
+                            );
+                            return;
+                          }
+
+                          await actions.emergencyBulkSms(
+                            _model.allContacts
+                                ?.map((e) => e.phone)
+                                .toList(),
+                            currentUserLocationValue,
+                            _model.selectedIndex,
+                          );
+                          // Show success feedback
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Emergency alert sent to ${_model.allContacts?.length ?? 0} contacts${!isValidLocation ? " (location unavailable)" : ""}',
+                              ),
+                              backgroundColor: Color(0xFF4CAF50),
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('Failed to send emergency alert'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
 
                         safeSetState(() {});
                       },
@@ -7983,8 +8049,8 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                           Align(
                             alignment: AlignmentDirectional(0.0, 0.0),
                             child: Container(
-                              width: 271.5,
-                              height: 271.5,
+                              width: 300.0,
+                              height: 300.0,
                               decoration: BoxDecoration(
                                 color: Color(0x30F79279),
                                 shape: BoxShape.circle,
@@ -7995,8 +8061,8 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                           Align(
                             alignment: AlignmentDirectional(0.0, 0.0),
                             child: Container(
-                              width: 220.0,
-                              height: 220.0,
+                              width: 245.0,
+                              height: 245.0,
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   colors: [
@@ -8014,8 +8080,8 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                           Align(
                             alignment: AlignmentDirectional(0.0, 0.0),
                             child: Container(
-                              width: 192.0,
-                              height: 192.0,
+                              width: 215.0,
+                              height: 215.0,
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   colors: [
@@ -8047,7 +8113,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                                           color: Colors.white,
                                           fontSize: MediaQuery.sizeOf(context)
                                                   .height *
-                                              0.054,
+                                              0.065,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.bold,
                                           fontStyle:

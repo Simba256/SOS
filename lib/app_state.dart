@@ -4,6 +4,7 @@ import 'flutter_flow/request_manager.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/sqlite/sqlite_manager.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FFAppState extends ChangeNotifier {
@@ -19,14 +20,46 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
+  /// Helper to get user-specific SharedPreferences key
+  String _userKey(String key) => '${key}_$currentUserUid';
+
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
-    _safeInit(() {
-      _Name = prefs.getString('ff_Name') ?? _Name;
-    });
-    _safeInit(() {
-      _UserImage = prefs.getString('ff_UserImage') ?? _UserImage;
-    });
+    // Note: User-specific data is loaded via loadUserData() after login
+  }
+
+  /// Load user-specific data after login.
+  /// Name is loaded from SharedPreferences, UserImage from Firestore.
+  void loadUserData() {
+    if (currentUserUid.isNotEmpty) {
+      _safeInit(() {
+        _Name = prefs.getString(_userKey('ff_Name')) ?? '';
+      });
+      // UserImage (photo URL) is loaded from Firestore via currentUserDocument
+      // It will be available once authenticatedUserStream emits the user document
+      _safeInit(() {
+        _UserImage = currentUserDocument?.photoUrl ?? '';
+      });
+      notifyListeners();
+    }
+  }
+
+  /// Reload user image from Firestore (call after authenticatedUserStream updates).
+  void reloadUserImage() {
+    final photoUrl = currentUserDocument?.photoUrl ?? '';
+    if (photoUrl != _UserImage) {
+      _UserImage = photoUrl;
+      notifyListeners();
+    }
+  }
+
+  /// Clear in-memory user data on logout.
+  void clearUserData() {
+    _Name = '';
+    _UserImage = '';
+    _contacts = [];
+    _FinalContacts = [];
+    notifyListeners();
   }
 
   void update(VoidCallback callback) {
@@ -86,15 +119,18 @@ class FFAppState extends ChangeNotifier {
   String get Name => _Name;
   set Name(String value) {
     _Name = value;
-    prefs.setString('ff_Name', value);
+    if (currentUserUid.isNotEmpty) {
+      prefs.setString(_userKey('ff_Name'), value);
+    }
   }
 
-  /// User'sImage
+  /// User's profile image URL (stored in Firestore, not SharedPreferences)
   String _UserImage = '';
   String get UserImage => _UserImage;
   set UserImage(String value) {
     _UserImage = value;
-    prefs.setString('ff_UserImage', value);
+    // Note: UserImage is persisted in Firestore (users/{uid}.photo_url),
+    // not in SharedPreferences. The upload_profile_image action handles Firestore update.
   }
 
   List<ContactStruct> _contacts = [];

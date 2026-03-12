@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import '/backend/sqlite/init.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import 'queries/read.dart';
 import 'queries/update.dart';
 
@@ -31,11 +32,13 @@ class SQLiteManager {
 
   Future<List<ReadContactsRow>> readContacts() => performReadContacts(
         _database,
+        userId: currentUserUid,
       );
 
   Future<List<ReadPhoneNumbersRow>> readPhoneNumbers() =>
       performReadPhoneNumbers(
         _database,
+        userId: currentUserUid,
       );
 
   Future<List<SearchContactsRow>> searchContacts({
@@ -44,6 +47,7 @@ class SQLiteManager {
       performSearchContacts(
         _database,
         searchTerm: searchTerm,
+        userId: currentUserUid,
       );
 
   /// END READ QUERY CALLS
@@ -60,6 +64,7 @@ class SQLiteManager {
         name: name,
         phone: phone,
         photo: photo,
+        userId: currentUserUid,
       );
 
   Future deleteContact({
@@ -68,6 +73,7 @@ class SQLiteManager {
       performDeleteContact(
         _database,
         phoneNumber: phoneNumber,
+        userId: currentUserUid,
       );
 
   Future addContactWithoutPhoto({
@@ -78,6 +84,7 @@ class SQLiteManager {
         _database,
         name: name,
         phone: phone,
+        userId: currentUserUid,
       );
 
   Future addContactOldFormat({
@@ -90,6 +97,7 @@ class SQLiteManager {
         name: name,
         phone: phone,
         photo: photo,
+        userId: currentUserUid,
       );
 
   Future deleteContactWithName({
@@ -98,6 +106,7 @@ class SQLiteManager {
       performDeleteContactWithName(
         _database,
         name: name,
+        userId: currentUserUid,
       );
 
   /// END UPDATE QUERY CALLS

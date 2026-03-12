@@ -4,18 +4,18 @@ import 'package:sqflite/sqflite.dart';
 Future<List<T>> _readQuery<T>(
   Database database,
   String query,
-  T Function(Map<String, dynamic>) create,
-) =>
-    database.rawQuery(query).then((r) => r.map((e) => create(e)).toList());
+  T Function(Map<String, dynamic>) create, [
+  List<Object?>? arguments,
+]) =>
+    database.rawQuery(query, arguments).then((r) => r.map((e) => create(e)).toList());
 
 /// BEGIN READCONTACTS
 Future<List<ReadContactsRow>> performReadContacts(
-  Database database,
-) {
-  final query = '''
-SELECT * FROM contacts;
-''';
-  return _readQuery(database, query, (d) => ReadContactsRow(d));
+  Database database, {
+  required String userId,
+}) {
+  final query = 'SELECT * FROM contacts WHERE user_id = ?';
+  return _readQuery(database, query, (d) => ReadContactsRow(d), [userId]);
 }
 
 class ReadContactsRow extends SqliteRow {
@@ -30,12 +30,11 @@ class ReadContactsRow extends SqliteRow {
 
 /// BEGIN READPHONENUMBERS
 Future<List<ReadPhoneNumbersRow>> performReadPhoneNumbers(
-  Database database,
-) {
-  final query = '''
-SELECT phone FROM contacts;
-''';
-  return _readQuery(database, query, (d) => ReadPhoneNumbersRow(d));
+  Database database, {
+  required String userId,
+}) {
+  final query = 'SELECT phone FROM contacts WHERE user_id = ?';
+  return _readQuery(database, query, (d) => ReadPhoneNumbersRow(d), [userId]);
 }
 
 class ReadPhoneNumbersRow extends SqliteRow {
@@ -50,14 +49,15 @@ class ReadPhoneNumbersRow extends SqliteRow {
 Future<List<SearchContactsRow>> performSearchContacts(
   Database database, {
   String? searchTerm,
+  required String userId,
 }) {
   final query = '''
 SELECT * FROM contacts
-WHERE LOWER(name) LIKE '%' || LOWER('${searchTerm}') || '%'
-   OR LOWER(phone) LIKE '%' || LOWER('${searchTerm}') || '%';
-
+WHERE user_id = ?
+  AND (LOWER(name) LIKE '%' || LOWER(?) || '%'
+   OR LOWER(phone) LIKE '%' || LOWER(?) || '%')
 ''';
-  return _readQuery(database, query, (d) => SearchContactsRow(d));
+  return _readQuery(database, query, (d) => SearchContactsRow(d), [userId, searchTerm, searchTerm]);
 }
 
 class SearchContactsRow extends SqliteRow {
