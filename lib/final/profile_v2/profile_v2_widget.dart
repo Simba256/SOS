@@ -77,12 +77,20 @@ class _ProfileV2WidgetState extends State<ProfileV2Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFF5F3F1),
+        resizeToAvoidBottomInset: true,
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+          child: LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
+                ),
+                child: IntrinsicHeight(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
               Container(
                 decoration: BoxDecoration(),
                 child: Column(
@@ -817,6 +825,10 @@ class _ProfileV2WidgetState extends State<ProfileV2Widget> {
                 ),
               ),
             ],
+          ),
+                ),
+              ),
+            ),
           ),
         ),
       ),

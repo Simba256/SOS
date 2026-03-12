@@ -366,24 +366,6 @@ class _Modal05CreateProjectWidgetState extends State<Modal05CreateProjectWidget>
                                                   ),
                                                 ],
                                               ),
-                                              Padding(
-                                                padding: EdgeInsets.all(8.0),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                  child: CachedNetworkImage(
-                                                    fadeInDuration: Duration(
-                                                        milliseconds: 500),
-                                                    fadeOutDuration: Duration(
-                                                        milliseconds: 500),
-                                                    imageUrl: '',
-                                                    width: double.infinity,
-                                                    height: double.infinity,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
                                             ],
                                           ),
                                         ),
