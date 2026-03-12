@@ -1,7 +1,7 @@
 # SOS App - Security & Bug Fix Changelog
 
 **Date:** 2026-03-12
-**Version:** 1.0.2
+**Version:** 1.0.3
 **Branch:** flutterflow
 
 ---
@@ -278,6 +278,46 @@ if (_model.uploadedLocalFile.bytes?.isNotEmpty ?? false) {
 
 **For new users:**
 - All data automatically uses the new isolated/synced storage
+
+---
+
+## UI Bug Fixes
+
+### Keyboard Overflow in Profile Page
+
+**File:** `lib/final/profile_v2/profile_v2_widget.dart`
+
+**Problem:** When tapping the Full Name field, the keyboard opened and caused a "bottom overflowed by 92 pixels" error (yellow/black striped warning).
+
+**Solution:** Wrapped the page content in `SingleChildScrollView` with `LayoutBuilder` and `IntrinsicHeight` to allow scrolling when the keyboard appears:
+
+```dart
+body: SafeArea(
+  child: LayoutBuilder(
+    builder: (context, constraints) => SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: constraints.maxHeight),
+        child: IntrinsicHeight(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // ... content
+          ),
+        ),
+      ),
+    ),
+  ),
+),
+```
+
+### Create Contact Image Error
+
+**File:** `lib/components/modal05_create_project_widget.dart`
+
+**Problem:** The "Add Photo" section showed a red error icon with "Invalid argument(s). No host specified in URI".
+
+**Cause:** A `CachedNetworkImage` widget was configured with an empty URL (`imageUrl: ''`), which caused the URI parsing error.
+
+**Solution:** Removed the unnecessary `CachedNetworkImage` widget from the Stack. The photo placeholder icon and text are sufficient for the empty state.
 
 ---
 
