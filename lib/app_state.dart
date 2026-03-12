@@ -29,14 +29,13 @@ class FFAppState extends ChangeNotifier {
   }
 
   /// Load user-specific data after login.
-  /// Name is loaded from SharedPreferences, UserImage from Firestore.
+  /// Both Name and UserImage are loaded from Firestore.
   void loadUserData() {
     if (currentUserUid.isNotEmpty) {
+      // Load from Firestore via currentUserDocument
       _safeInit(() {
-        _Name = prefs.getString(_userKey('ff_Name')) ?? '';
+        _Name = currentUserDocument?.displayName ?? '';
       });
-      // UserImage (photo URL) is loaded from Firestore via currentUserDocument
-      // It will be available once authenticatedUserStream emits the user document
       _safeInit(() {
         _UserImage = currentUserDocument?.photoUrl ?? '';
       });
@@ -44,11 +43,22 @@ class FFAppState extends ChangeNotifier {
     }
   }
 
-  /// Reload user image from Firestore (call after authenticatedUserStream updates).
-  void reloadUserImage() {
+  /// Reload user data from Firestore (call after authenticatedUserStream updates).
+  void reloadUserData() {
+    final displayName = currentUserDocument?.displayName ?? '';
     final photoUrl = currentUserDocument?.photoUrl ?? '';
+    bool changed = false;
+
+    if (displayName != _Name) {
+      _Name = displayName;
+      changed = true;
+    }
     if (photoUrl != _UserImage) {
       _UserImage = photoUrl;
+      changed = true;
+    }
+
+    if (changed) {
       notifyListeners();
     }
   }
@@ -114,13 +124,14 @@ class FFAppState extends ChangeNotifier {
     _UserLocation = value;
   }
 
-  /// User's Full Name
+  /// User's Full Name (stored in Firestore)
   String _Name = '';
   String get Name => _Name;
   set Name(String value) {
     _Name = value;
-    if (currentUserUid.isNotEmpty) {
-      prefs.setString(_userKey('ff_Name'), value);
+    // Save to Firestore
+    if (currentUserUid.isNotEmpty && currentUserReference != null) {
+      currentUserReference!.update(createUsersRecordData(displayName: value));
     }
   }
 

@@ -74,8 +74,8 @@ class _MyAppState extends State<MyApp> {
   late Stream<BaseAuthUser> userStream;
 
   final authUserSub = authenticatedUserStream.listen((_) {
-    // Reload user image from Firestore when user document updates
-    FFAppState().reloadUserImage();
+    // Reload user data (name and image) from Firestore when user document updates
+    FFAppState().reloadUserData();
   });
   final fcmTokenSub = fcmTokenUserStream.listen((_) {});
 
