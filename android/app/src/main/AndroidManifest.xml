@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.mycompany.sosapp" xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
   <!-- Base permission for internet access -->
   <uses-permission android:name="android.permission.INTERNET"/>
   <!-- Permission to keep screen awake (critical for emergency SOS app) -->
@@ -8,8 +8,6 @@
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
   <!-- Background location for Android 10+ (API 29+) -->
   <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
-  <!-- Permission to send SMS (for Twilio or direct sending) -->
-  <uses-permission android:name="android.permission.SEND_SMS"/>
   <uses-permission android:name="android.permission.READ_CONTACTS"/>
   <!-- Battery optimization exemption (critical for background emergency features) -->
   <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>

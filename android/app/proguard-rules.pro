@@ -27,9 +27,6 @@
 # Just Audio - Keep audio player
 -keep class com.ryanheise.just_audio.** { *; }
 
-# Telephony - Keep SMS functionality
--keep class com.shounakmulay.telephony.** { *; }
-
 # Firebase - Keep all Firebase classes
 -keep class com.google.firebase.** { *; }
 -keep class com.google.android.gms.** { *; }
