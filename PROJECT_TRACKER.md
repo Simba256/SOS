@@ -1,6 +1,6 @@
 # Project Tracker
 
-> Last updated: 2026-05-14
+> Last updated: 2026-05-15
 
 ## Project Summary
 SOS Emergency App - one-tap emergency alert app that sends SMS with GPS coordinates to emergency contacts.
@@ -12,6 +12,7 @@ SOS Emergency App - one-tap emergency alert app that sends SMS with GPS coordina
 - [ ] Resubmit v1.0.4+4 to Google Play production after SMS permission fix
 
 ## Recently Completed
+- [x] Built release APK v1.0.5+5 at `build/app/outputs/flutter-apk/app-release.apk` (79MB, release-signed via existing keystore) bundling: morse-pattern retiming, SOS auto-route on resume, vibration sync — (2026-05-15)
 - [x] Vibration synced to SOS morse pattern: added `vibration: ^2.0.0` package + Android `VIBRATE` permission, `SOSAnimatedWidget` now fires `Vibration.vibrate(duration: pulseMs)` on each ON phase and cancels on dispose. Auto-on while on `/sosv2`, no toggle. — (2026-05-14)
 - [x] Auto-route to SOS screen after SMS composer returns: added session-only `FFAppState().sosTriggered` flag, set on home-screen SOS press, consumed by a `WidgetsBindingObserver` in `_MyAppState` that routes to `/sosv2` on `AppLifecycleState.resumed` — (2026-05-14)
 - [x] SOS morse pattern retimed to spec (S: 1/1×3, O: 2/1×3, S: 1/1×3, 2s pause) in `s_o_s_animated_widget.dart`; torch/audio/screen-flash already share `FFAppState().currentSOSState` so they stay in sync — (2026-05-14)
