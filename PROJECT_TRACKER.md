@@ -1,6 +1,6 @@
 # Project Tracker
 
-> Last updated: 2026-04-15
+> Last updated: 2026-05-14
 
 ## Project Summary
 SOS Emergency App - one-tap emergency alert app that sends SMS with GPS coordinates to emergency contacts.
@@ -12,6 +12,7 @@ SOS Emergency App - one-tap emergency alert app that sends SMS with GPS coordina
 - [ ] Resubmit v1.0.4+4 to Google Play production after SMS permission fix
 
 ## Recently Completed
+- [x] SOS morse pattern retimed to spec (S: 1/1×3, O: 2/1×3, S: 1/1×3, 2s pause) in `s_o_s_animated_widget.dart`; torch/audio/screen-flash already share `FFAppState().currentSOSState` so they stay in sync — (2026-05-14)
 - [x] v1.0.4+4 built — removed telephony plugin, SEND_SMS permission, proguard rule (2026-04-15)
 - [x] Diagnosed rejection: unused `telephony` plugin was manifest-merging SMS permissions (2026-04-15)
 - [x] First production submission rejected for SMS/Call log permission policy — (2026-04-14)

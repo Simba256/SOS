@@ -39,21 +39,26 @@ class _Pulse {
 class _SOSAnimatedWidgetState extends State<SOSAnimatedWidget> {
   static const int _unitDurationMs = 1000;
 
+  // Pattern (one full cycle):
+  //   S -> 1s ON / 1s OFF x 3
+  //   O -> 2s ON / 1s OFF x 3
+  //   S -> 1s ON / 1s OFF x 3
+  //   2s pause, then loop
   final List<_Pulse> _sosPattern = const [
-    // S: dot dot dot
+    // S: 1s ON / 1s OFF x 3
+    _Pulse(1, 1),
+    _Pulse(1, 1),
+    _Pulse(1, 1),
+
+    // O: 2s ON / 1s OFF x 3
+    _Pulse(2, 1),
+    _Pulse(2, 1),
+    _Pulse(2, 1),
+
+    // S: 1s ON / 1s OFF x 3 (last OFF = 1s for S + 2s loop pause = 3s)
     _Pulse(1, 1),
     _Pulse(1, 1),
     _Pulse(1, 3),
-
-    // O: dash dash dash
-    _Pulse(3, 1),
-    _Pulse(3, 1),
-    _Pulse(3, 3),
-
-    // S: dot dot dot
-    _Pulse(1, 1),
-    _Pulse(1, 1),
-    _Pulse(1, 7),
   ];
 
   int _currentIndex = 0;
