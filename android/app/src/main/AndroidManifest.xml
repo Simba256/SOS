@@ -11,6 +11,8 @@
   <uses-permission android:name="android.permission.READ_CONTACTS"/>
   <!-- Battery optimization exemption (critical for background emergency features) -->
   <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+  <!-- Vibrate in sync with the SOS morse pattern (normal permission, auto-granted) -->
+  <uses-permission android:name="android.permission.VIBRATE"/>
   <!--
       This section is required for apps targeting Android 11 (API 30) or higher.
       It declares that your app intends to interact with other apps (like WhatsApp).

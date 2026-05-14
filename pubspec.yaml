@@ -157,6 +157,7 @@ dependencies:
   video_player_avfoundation: 2.7.1
   video_player_platform_interface: 6.3.0
   video_player_web: 2.3.5
+  vibration: ^2.0.0
   wakelock_plus: ^1.2.8
 
   # The following adds the Cupertino Icons font to your application.

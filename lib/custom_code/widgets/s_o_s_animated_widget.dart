@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'package:vibration/vibration.dart';
+
 class SOSAnimatedWidget extends StatefulWidget {
   const SOSAnimatedWidget({
     super.key,
@@ -67,10 +69,27 @@ class _SOSAnimatedWidgetState extends State<SOSAnimatedWidget> {
   Color _bgColor = Colors.white;
   Color _textColor = Colors.yellow;
 
+  // Vibration is only attempted if the device reports a vibrator. We probe
+  // once and cache the result rather than awaiting on every pulse.
+  bool _hasVibrator = false;
+
   @override
   void initState() {
     super.initState();
+    Vibration.hasVibrator().then((has) {
+      if (!mounted) return;
+      _hasVibrator = has == true;
+    });
     _startFlashing();
+  }
+
+  @override
+  void dispose() {
+    // Stop any in-flight vibration when leaving the SOS screen.
+    if (_hasVibrator) {
+      Vibration.cancel();
+    }
+    super.dispose();
   }
 
   void _startFlashing() {
@@ -85,7 +104,16 @@ class _SOSAnimatedWidgetState extends State<SOSAnimatedWidget> {
       return;
     }
 
-    final duration = Duration(milliseconds: durationUnits * _unitDurationMs);
+    final durationMs = durationUnits * _unitDurationMs;
+    final duration = Duration(milliseconds: durationMs);
+
+    // Vibrate for the ON phase only. Each ON pulse fires a fresh vibrate
+    // call sized to the pulse (1s for S dots, 2s for O dashes); the OFF
+    // phases naturally have no vibration. Stays in sync with the visual
+    // driver because both are scheduled off the same _Pulse.
+    if (_isOn && _hasVibrator) {
+      Vibration.vibrate(duration: durationMs);
+    }
 
     setState(() {
       // Update global SOS state for synchronized components
