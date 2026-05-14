@@ -8016,6 +8016,12 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                             return;
                           }
 
+                          // Flag this session as having triggered SOS so that
+                          // when the user returns from the system SMS app we
+                          // route them to the SOS screen rather than back to
+                          // home. Cleared in the catch below if launch fails.
+                          FFAppState().sosTriggered = true;
+
                           await actions.emergencyBulkSms(
                             _model.allContacts
                                 ?.map((e) => e.phone)
@@ -8034,6 +8040,7 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                             ),
                           );
                         } catch (e) {
+                          FFAppState().sosTriggered = false;
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text('Failed to send emergency alert'),

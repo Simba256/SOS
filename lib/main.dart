@@ -53,8 +53,12 @@ class MyAppScrollBehavior extends MaterialScrollBehavior {
       };
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
+
+  // Route path of the SOS screen (matches Sosv2Widget.routePath). Hardcoded
+  // here to avoid pulling the widget import into main.dart.
+  static const String _sosRoutePath = '/sosv2';
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
@@ -82,6 +86,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
@@ -105,9 +110,28 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     authUserSub.cancel();
     fcmTokenSub.cancel();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      _maybeRouteToSosAfterTrigger();
+    }
+  }
+
+  // If the user fired an SOS before backgrounding (e.g. opened the system SMS
+  // composer), route them to the SOS screen on resume instead of leaving them
+  // on whatever screen they came from. One-shot per trigger.
+  void _maybeRouteToSosAfterTrigger() {
+    if (!FFAppState().sosTriggered) return;
+    FFAppState().sosTriggered = false;
+    if (getRoute() == _sosRoutePath) return;
+    _router.go(_sosRoutePath);
   }
 
   void setThemeMode(ThemeMode mode) => safeSetState(() {

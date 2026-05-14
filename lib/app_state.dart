@@ -233,6 +233,16 @@ class FFAppState extends ChangeNotifier {
     _isAudioEnabled = value;
   }
 
+  // Session-only: true once the user has fired an SOS from the home screen.
+  // On the next AppLifecycleState.resumed we route the user to the SOS screen
+  // instead of letting them land back on home. Cleared after that navigation
+  // (or on a failed SMS launch). Not persisted — resets on app restart.
+  bool _sosTriggered = false;
+  bool get sosTriggered => _sosTriggered;
+  set sosTriggered(bool value) {
+    _sosTriggered = value;
+  }
+
   final _getEmergencyContactsManager =
       FutureRequestManager<List<SearchContactsRow>>();
   Future<List<SearchContactsRow>> getEmergencyContacts({
