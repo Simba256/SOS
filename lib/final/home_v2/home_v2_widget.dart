@@ -8029,6 +8029,18 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                             currentUserLocationValue,
                             _model.selectedIndex,
                           );
+
+                          // Push the SOS screen onto the nav stack BEFORE the
+                          // OS finishes handing focus to the SMS composer.
+                          // This is the primary mechanism: when the user
+                          // returns from the SMS app, the SOS screen is
+                          // already on top, so back-from-SMS lands on /sosv2
+                          // instead of /home. The lifecycle observer in
+                          // _MyAppState is a fallback for edge cases.
+                          if (mounted) {
+                            context.pushNamed(Sosv2Widget.routeName);
+                          }
+
                           // Show success feedback
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
