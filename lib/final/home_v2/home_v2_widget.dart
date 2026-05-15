@@ -8022,6 +8022,21 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                           // home. Cleared in the catch below if launch fails.
                           FFAppState().sosTriggered = true;
 
+                          // Push the SOS screen onto the nav stack BEFORE
+                          // launching the SMS intent. If we pushed after the
+                          // launch, the OS would already be backgrounding us
+                          // and the navigation would be dropped — verified in
+                          // v1.0.6 testing. Pushing first + waiting for the
+                          // frame to commit ensures /sosv2 is on top when
+                          // focus transfers to the SMS composer, so back or
+                          // recent-apps from SMS lands on /sosv2, not /home.
+                          if (mounted) {
+                            context.pushNamed(Sosv2Widget.routeName);
+                            // Let the router commit the push before we hand
+                            // focus off to the system SMS app.
+                            await WidgetsBinding.instance.endOfFrame;
+                          }
+
                           await actions.emergencyBulkSms(
                             _model.allContacts
                                 ?.map((e) => e.phone)
@@ -8029,17 +8044,6 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                             currentUserLocationValue,
                             _model.selectedIndex,
                           );
-
-                          // Push the SOS screen onto the nav stack BEFORE the
-                          // OS finishes handing focus to the SMS composer.
-                          // This is the primary mechanism: when the user
-                          // returns from the SMS app, the SOS screen is
-                          // already on top, so back-from-SMS lands on /sosv2
-                          // instead of /home. The lifecycle observer in
-                          // _MyAppState is a fallback for edge cases.
-                          if (mounted) {
-                            context.pushNamed(Sosv2Widget.routeName);
-                          }
 
                           // Show success feedback
                           ScaffoldMessenger.of(context).showSnackBar(
