@@ -6,12 +6,15 @@
 SOS Emergency App - one-tap emergency alert app that sends SMS with GPS coordinates to emergency contacts.
 
 ## Current Status
-**Status**: Active - Fixing policy rejection, resubmitting v1.0.4
+**Status**: Active - v1.0.8+8 built with morse pattern + auto-route + vibration + fast-path location. Ready for resubmission to Play after final hardware QA pass.
 
 ## In Progress
-- [ ] Resubmit v1.0.4+4 to Google Play production after SMS permission fix
+- [ ] Final hardware QA on v1.0.8+8 (test SOS button on 2 Android devices — old and new — verify pattern sync, auto-route, vibration, instant feedback)
+- [ ] Resubmit to Google Play production (note: version bumped well past v1.0.4+4 during fix iterations)
 
 ## Recently Completed
+- [x] v1.0.8+8 — instant SOS feedback: new `fastEmergencyLocation` action (last-known first, 2.5s low-accuracy fallback) replaces 15s high-accuracy GPS wait that was blocking the SOS flow for 10-12s. Handler reordered to push `/sosv2` before location lookup, so siren/flash/vibration fire within ~50ms of confirm. User-confirmed working on hardware — (2026-05-15)
+- [x] v1.0.7+7 — SOS auto-route fix: push `/sosv2` BEFORE launching SMS intent + `await endOfFrame` to guarantee route commits before backgrounding (previous v1.0.5/v1.0.6 versions dropped the post-launch push) — (2026-05-15)
 - [x] Built release APK v1.0.5+5 at `build/app/outputs/flutter-apk/app-release.apk` (79MB, release-signed via existing keystore) bundling: morse-pattern retiming, SOS auto-route on resume, vibration sync — (2026-05-15)
 - [x] Vibration synced to SOS morse pattern: added `vibration: ^2.0.0` package + Android `VIBRATE` permission, `SOSAnimatedWidget` now fires `Vibration.vibrate(duration: pulseMs)` on each ON phase and cancels on dispose. Auto-on while on `/sosv2`, no toggle. — (2026-05-14)
 - [x] Auto-route to SOS screen after SMS composer returns: added session-only `FFAppState().sosTriggered` flag, set on home-screen SOS press, consumed by a `WidgetsBindingObserver` in `_MyAppState` that routes to `/sosv2` on `AppLifecycleState.resumed` — (2026-05-14)
