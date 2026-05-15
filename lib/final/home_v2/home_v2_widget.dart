@@ -7995,14 +7995,9 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                           return;
                         }
                         try {
-                          currentUserLocationValue = await getCurrentUserLocation(
-                              defaultLocation: LatLng(0.0, 0.0));
-
-                          // Validate location
-                          final isValidLocation = currentUserLocationValue != null &&
-                              !(currentUserLocationValue!.latitude == 0.0 &&
-                                currentUserLocationValue!.longitude == 0.0);
-
+                          // Read contacts FIRST (cheap SQLite call, ~10ms).
+                          // We need this to bail out before showing the SOS
+                          // screen if the user has no contacts configured.
                           _model.allContacts =
                               await SQLiteManager.instance.readContacts();
 
@@ -8016,26 +8011,30 @@ class _HomeV2WidgetState extends State<HomeV2Widget>
                             return;
                           }
 
-                          // Flag this session as having triggered SOS so that
-                          // when the user returns from the system SMS app we
-                          // route them to the SOS screen rather than back to
-                          // home. Cleared in the catch below if launch fails.
+                          // INSTANT visual feedback: push the SOS screen now,
+                          // before any potentially-slow work. The SOS pattern
+                          // (siren / torch / flash / vibration) starts firing
+                          // immediately. Previously we awaited a 15s GPS fix
+                          // here, which made the app feel frozen for 10-12s
+                          // during emergencies. Bad UX for an emergency app.
                           FFAppState().sosTriggered = true;
-
-                          // Push the SOS screen onto the nav stack BEFORE
-                          // launching the SMS intent. If we pushed after the
-                          // launch, the OS would already be backgrounding us
-                          // and the navigation would be dropped — verified in
-                          // v1.0.6 testing. Pushing first + waiting for the
-                          // frame to commit ensures /sosv2 is on top when
-                          // focus transfers to the SMS composer, so back or
-                          // recent-apps from SMS lands on /sosv2, not /home.
                           if (mounted) {
                             context.pushNamed(Sosv2Widget.routeName);
-                            // Let the router commit the push before we hand
-                            // focus off to the system SMS app.
                             await WidgetsBinding.instance.endOfFrame;
                           }
+
+                          // Fast-path location: last-known fix first (instant),
+                          // 2.5s low-accuracy fallback, then give up and use
+                          // (0,0). For an emergency, sending the SMS quickly
+                          // with no location beats waiting 15s for a fix.
+                          currentUserLocationValue =
+                              await actions.fastEmergencyLocation(
+                            LatLng(0.0, 0.0),
+                          );
+
+                          final isValidLocation =
+                              !(currentUserLocationValue!.latitude == 0.0 &&
+                                  currentUserLocationValue!.longitude == 0.0);
 
                           await actions.emergencyBulkSms(
                             _model.allContacts
