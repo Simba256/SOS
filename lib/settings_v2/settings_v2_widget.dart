@@ -294,8 +294,8 @@ class _SettingsV2WidgetState extends State<SettingsV2Widget> {
                                         color: Color(0xFF717171),
                                         size: 24.0,
                                       ),
-                                      onPressed: () {
-                                        print('IconButton pressed ...');
+                                      onPressed: () async {
+                                        await launchURL('https://sos-sigma-lac.vercel.app/');
                                       },
                                     ),
                                   ],
@@ -354,8 +354,8 @@ class _SettingsV2WidgetState extends State<SettingsV2Widget> {
                                         color: Color(0xFF717171),
                                         size: 24.0,
                                       ),
-                                      onPressed: () {
-                                        print('IconButton pressed ...');
+                                      onPressed: () async {
+                                        await launchURL('https://sos-sigma-lac.vercel.app/terms.html');
                                       },
                                     ),
                                   ],
