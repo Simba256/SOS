@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom actions
 import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
@@ -37,8 +38,9 @@ Future<bool> readContacts() async {
     FFAppState().contacts = contactStructs;
     return true;
   } catch (e) {
-    print('Error reading contacts: '
-        '${e.toString()}');
+    if (kDebugMode) {
+      print('Error reading contacts: ${e.toString()}');
+    }
     return false;
   }
 }
