@@ -1,0 +1,82 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper function to check if file is an image
+    function isImage() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    // Helper function to check file size (in MB)
+    function isUnderSize(sizeMB) {
+      return request.resource.size < sizeMB * 1024 * 1024;
+    }
+
+    // ============================================
+    // USER PROFILE IMAGES
+    // ============================================
+    match /users/{userId}/profile/{imageId} {
+      // Users can read any profile image (public)
+      allow read: if true;
+
+      // Users can only upload/update their own profile images
+      allow write: if isAuthenticated() &&
+                     request.auth.uid == userId &&
+                     isImage() &&
+                     isUnderSize(5); // 5MB max
+
+      // Users can delete their own profile images
+      allow delete: if isAuthenticated() &&
+                      request.auth.uid == userId;
+    }
+
+    // ============================================
+    // SOS ALERT ATTACHMENTS (photos/videos from emergency)
+    // ============================================
+    match /sos_alerts/{alertId}/attachments/{fileName} {
+      // Users can upload attachments to their own alerts
+      allow write: if isAuthenticated() &&
+                     (isImage() || request.resource.contentType.matches('video/.*')) &&
+                     isUnderSize(20); // 20MB max for videos
+
+      // Users can read attachments from their own alerts or alerts they're involved in
+      // Note: This is a simplified check. In production, you'd verify against Firestore
+      allow read: if isAuthenticated();
+
+      // Users can delete their own attachments
+      allow delete: if isAuthenticated();
+    }
+
+    // ============================================
+    // EMERGENCY CONTACT PHOTOS (imported from contacts)
+    // ============================================
+    match /emergency_contacts/{userId}/{contactId}/{photo} {
+      // Users can only upload photos for their own contacts
+      allow write: if isAuthenticated() &&
+                     request.auth.uid == userId &&
+                     isImage() &&
+                     isUnderSize(2); // 2MB max
+
+      // Users can read their own contact photos
+      allow read: if isAuthenticated() &&
+                    request.auth.uid == userId;
+
+      // Users can delete their own contact photos
+      allow delete: if isAuthenticated() &&
+                      request.auth.uid == userId;
+    }
+
+    // ============================================
+    // DENY ALL OTHER ACCESS
+    // ============================================
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

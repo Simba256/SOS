@@ -1,0 +1,11 @@
+{
+  "firestore": {
+    "rules": "firebase-rules/firestore.rules"
+  },
+  "storage": [
+    {
+      "bucket": "sos-app-w.appspot.com",
+      "rules": "firebase-rules/storage.rules"
+    }
+  ]
+}
