@@ -13,6 +13,7 @@ SOS Emergency App - one-tap emergency alert app that sends SMS with GPS coordina
 - [ ] Resubmit to Google Play production (note: version bumped well past v1.0.4+4 during fix iterations)
 
 ## Recently Completed
+- [x] Release AAB builds cleanly after package rename + contacts hardening: `build/app/outputs/bundle/release/app-release.aab` (53.5MB, v1.0.8+8) — (2026-10-02)
 - [x] Finished package rename: removed `package` attr from profile manifest, iOS bundle IDs → `com.chameleonideas.sosapp` — (2026-10-02)
 - [x] Committed pending work: Android package rename to `com.chameleonideas.sosapp`, debug-only logging, contacts-flow hardening, settings privacy/terms links, Firebase rules/config, Play Store assets — (2026-10-02)
 - [x] v1.0.8+8 — instant SOS feedback: new `fastEmergencyLocation` action (last-known first, 2.5s low-accuracy fallback) replaces 15s high-accuracy GPS wait that was blocking the SOS flow for 10-12s. Handler reordered to push `/sosv2` before location lookup, so siren/flash/vibration fire within ~50ms of confirm. User-confirmed working on hardware — (2026-05-15)
@@ -35,6 +36,7 @@ SOS Emergency App - one-tap emergency alert app that sends SMS with GPS coordina
 - [x] Cross-device profile sync — (2026-03-12)
 
 ## Upcoming / Planned
+- [ ] Fix `test/widget_test.dart` — FlutterFlow default smoke test fails (Firebase not initialized in test env); needs Firebase mocks or replacement with real tests
 - [ ] Register iOS app `com.chameleonideas.sosapp` in Firebase and replace `ios/Runner/GoogleService-Info.plist` (still has old bundle ID `com.mycompany.sosapp`)
 - [ ] Prepare and submit production release to Google Play
 - [ ] Set up production listing (full description, screenshots, feature graphic)
@@ -46,7 +48,6 @@ SOS Emergency App - one-tap emergency alert app that sends SMS with GPS coordina
 ## Key Decisions
 - (2026-04-15) Removed `telephony` plugin entirely — app uses intent-based SMS (`sms:`/`smsto:` URIs via url_launcher), so telephony was dead code that was manifest-merging SEND_SMS into the APK and triggering policy rejection.
 
-## Key Decisions
 - (2026-03-12) Target countries: Canada, Pakistan for closed testing
 - (2026-03-12) App ID: com.chameleonideas.sosapp
 - (2026-03-12) Feedback email: simba.dev256@gmail.com
