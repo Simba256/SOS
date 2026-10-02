@@ -1,4 +1,4 @@
-package com.mycompany.sosapp
+package com.chameleonideas.sosapp
 
 import io.flutter.embedding.android.FlutterActivity
 
