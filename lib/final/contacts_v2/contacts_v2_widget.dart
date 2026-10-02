@@ -174,18 +174,28 @@ class _ContactsV2WidgetState extends State<ContactsV2Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              await requestPermission(contactsPermission);
-                              _model.fetchedPhoneContacts =
-                                  await actions.fetchPhoneContacts();
-                              FFAppState().FinalContacts = _model
-                                  .fetchedPhoneContacts!
-                                  .toList()
-                                  .cast<FinalContactStruct>();
+                              try {
+                                await requestPermission(contactsPermission);
+                                _model.fetchedPhoneContacts =
+                                    await actions.fetchPhoneContacts();
+                                if (_model.fetchedPhoneContacts != null) {
+                                  FFAppState().FinalContacts = _model
+                                      .fetchedPhoneContacts!
+                                      .toList()
+                                      .cast<FinalContactStruct>();
+                                }
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Could not access contacts. Please grant permission.'),
+                                    backgroundColor: Colors.orange,
+                                  ),
+                                );
+                                return;
+                              }
                               safeSetState(() {});
 
                               context.pushNamed(LoadContactsV2Widget.routeName);
-
-                              safeSetState(() {});
                             },
                             onDoubleTap: () async {
                               context.pushNamed(MyPageWidget.routeName);
@@ -275,6 +285,7 @@ class _ContactsV2WidgetState extends State<ContactsV2Widget> {
                               final listViewReadContactsRow =
                                   listViewReadContactsRowList[listViewIndex];
                               return Padding(
+                                key: ValueKey(listViewReadContactsRow.phone),
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     17.5, 10.0, 17.5, 10.0),
                                 child: Container(
@@ -422,13 +433,21 @@ class _ContactsV2WidgetState extends State<ContactsV2Widget> {
                                               size: 24.0,
                                             ),
                                             onPressed: () async {
-                                              await SQLiteManager.instance
-                                                  .deleteContactWithName(
-                                                name: listViewReadContactsRow
-                                                    .name,
-                                              );
-
-                                              safeSetState(() {});
+                                              try {
+                                                await SQLiteManager.instance
+                                                    .deleteContactWithName(
+                                                  name: listViewReadContactsRow
+                                                      .name,
+                                                );
+                                                safeSetState(() {});
+                                              } catch (e) {
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text('Failed to delete contact'),
+                                                    backgroundColor: Colors.red,
+                                                  ),
+                                                );
+                                              }
                                             },
                                           ),
                                         ),

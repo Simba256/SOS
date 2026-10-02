@@ -111,12 +111,14 @@ class _AudioToggleButtonState extends State<AudioToggleButton> {
       // Set release mode but don't loop since we'll control it manually
       await _audioPlayer!.setReleaseMode(ReleaseMode.stop);
 
+      if (!mounted) return;
       setState(() {
         _isInitialized = true;
         _errorMessage = null;
       });
     } catch (e) {
       print('Error initializing audio: $e');
+      if (!mounted) return;
       setState(() {
         _isInitialized = false;
         _errorMessage = 'Could not load audio';

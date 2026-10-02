@@ -2,7 +2,6 @@ import '/backend/sqlite/sqlite_manager.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
@@ -340,17 +339,11 @@ class _LoadContactsV2WidgetState extends State<LoadContactsV2Widget> {
                                                   loadedContactsIndex,
                                                   (e) => e..isSelected = true,
                                                 );
-                                                unawaited(
-                                                  () async {}(),
-                                                );
                                               } else {
                                                 FFAppState()
                                                     .updateFinalContactsAtIndex(
                                                   loadedContactsIndex,
                                                   (e) => e..isSelected = false,
-                                                );
-                                                unawaited(
-                                                  () async {}(),
                                                 );
                                               }
                                             },
@@ -399,10 +392,14 @@ class _LoadContactsV2WidgetState extends State<LoadContactsV2Widget> {
                             .FinalContacts
                             .unique((e) => e.phoneNumber)[loop1Index];
                         if (currentLoop1Item.isSelected) {
-                          await SQLiteManager.instance.addContactWithoutPhoto(
-                            name: currentLoop1Item.name,
-                            phone: currentLoop1Item.phoneNumber,
-                          );
+                          try {
+                            await SQLiteManager.instance.addContactWithoutPhoto(
+                              name: currentLoop1Item.name,
+                              phone: currentLoop1Item.phoneNumber,
+                            );
+                          } catch (e) {
+                            // Contact may already exist, continue with others
+                          }
                         }
                       }
 

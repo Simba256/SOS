@@ -16,14 +16,14 @@ import 'dart:convert';
 import 'dart:typed_data';
 import '/flutter_flow/custom_functions.dart' as functions;
 
-class ContactAvatarWidget extends StatelessWidget {
+class ContactAvatarWidget extends StatefulWidget {
   const ContactAvatarWidget({
     Key? key,
     this.width,
     this.height,
     required this.contactName,
     this.imageUrl,
-    this.imageBase64, // New param
+    this.imageBase64,
     this.fontSize,
   }) : super(key: key);
 
@@ -31,40 +31,69 @@ class ContactAvatarWidget extends StatelessWidget {
   final double? height;
   final String contactName;
   final String? imageUrl;
-  final String? imageBase64; // holds Base64 string if present
+  final String? imageBase64;
   final double? fontSize;
 
   @override
+  State<ContactAvatarWidget> createState() => _ContactAvatarWidgetState();
+}
+
+class _ContactAvatarWidgetState extends State<ContactAvatarWidget> {
+  Uint8List? _cachedImageBytes;
+  String? _lastImageBase64;
+
+  @override
+  void initState() {
+    super.initState();
+    _updateImageCache();
+  }
+
+  @override
+  void didUpdateWidget(ContactAvatarWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.imageBase64 != widget.imageBase64) {
+      _updateImageCache();
+    }
+  }
+
+  void _updateImageCache() {
+    if (widget.imageBase64 != _lastImageBase64) {
+      _lastImageBase64 = widget.imageBase64;
+      if (widget.imageBase64 != null && widget.imageBase64!.isNotEmpty) {
+        try {
+          final cleaned = widget.imageBase64!.replaceAll(RegExp(r'\s+'), '');
+          _cachedImageBytes = base64Decode(cleaned);
+        } catch (e) {
+          _cachedImageBytes = null;
+        }
+      } else {
+        _cachedImageBytes = null;
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final avatarSize = width ?? 40.0;
-    final textSize = fontSize ?? (avatarSize * 0.4);
+    final avatarSize = widget.width ?? 40.0;
+    final textSize = widget.fontSize ?? (avatarSize * 0.4);
 
     ImageProvider? provider;
 
-    // Priority: Base64 image → Network URL → None
-    if (imageBase64 != null && imageBase64!.isNotEmpty) {
-      try {
-        // Remove whitespace/newlines in Base64
-        final cleaned = imageBase64!.replaceAll(RegExp(r'\s+'), '');
-        final bytes = base64Decode(cleaned);
-        print('Decoded bytes length: ${bytes.length}');
-        provider = MemoryImage(bytes);
-      } catch (e) {
-        print('Decode error: $e');
-        provider = null;
-      }
-    } else if (imageUrl != null && imageUrl!.isNotEmpty) {
-      provider = NetworkImage(imageUrl!);
+    // Priority: Cached Base64 image -> Network URL -> None
+    if (_cachedImageBytes != null) {
+      provider = MemoryImage(_cachedImageBytes!);
+    } else if (widget.imageUrl != null && widget.imageUrl!.isNotEmpty) {
+      provider = NetworkImage(widget.imageUrl!);
     }
 
     return Container(
       width: avatarSize,
-      height: height ?? avatarSize,
+      height: widget.height ?? avatarSize,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: (provider != null)
             ? Colors.transparent
-            : functions.generateColorFromString(contactName),
+            : functions.generateColorFromString(widget.contactName),
         image: (provider != null)
             ? DecorationImage(
                 image: provider,
@@ -75,7 +104,7 @@ class ContactAvatarWidget extends StatelessWidget {
       child: (provider == null)
           ? Center(
               child: Text(
-                functions.getInitialsRobust(contactName),
+                functions.getInitialsRobust(widget.contactName),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: textSize,
