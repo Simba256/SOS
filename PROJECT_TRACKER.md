@@ -6,13 +6,14 @@
 SOS Emergency App - one-tap emergency alert app that sends SMS with GPS coordinates to emergency contacts.
 
 ## Current Status
-**Status**: Active - v1.0.8+8 built with morse pattern + auto-route + vibration + fast-path location. Ready for resubmission to Play after final hardware QA pass.
+**Status**: Active - v1.0.9+9 AAB built (v1.0.8+8 already uploaded to Play); v1.0.8+8 built with morse pattern + auto-route + vibration + fast-path location. Ready for resubmission to Play after final hardware QA pass.
 
 ## In Progress
-- [ ] Final hardware QA on v1.0.8+8 (test SOS button on 2 Android devices — old and new — verify pattern sync, auto-route, vibration, instant feedback)
+- [ ] Final hardware QA on v1.0.9+9 (test SOS button on 2 Android devices — old and new — verify pattern sync, auto-route, vibration, instant feedback)
 - [ ] Resubmit to Google Play production (note: version bumped well past v1.0.4+4 during fix iterations)
 
 ## Recently Completed
+- [x] Bumped to v1.0.9+9 and rebuilt release AAB (`build/app/outputs/bundle/release/app-release.aab`, 53.5MB, versionCode 9) — v1.0.8+8 was already uploaded to Play — (2026-10-02)
 - [x] Release AAB builds cleanly after package rename + contacts hardening: `build/app/outputs/bundle/release/app-release.aab` (53.5MB, v1.0.8+8) — (2026-10-02)
 - [x] Finished package rename: removed `package` attr from profile manifest, iOS bundle IDs → `com.chameleonideas.sosapp` — (2026-10-02)
 - [x] Committed pending work: Android package rename to `com.chameleonideas.sosapp`, debug-only logging, contacts-flow hardening, settings privacy/terms links, Firebase rules/config, Play Store assets — (2026-10-02)
