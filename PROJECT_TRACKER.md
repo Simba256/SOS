@@ -1,6 +1,6 @@
 # Project Tracker
 
-> Last updated: 2026-05-15
+> Last updated: 2026-10-02
 
 ## Project Summary
 SOS Emergency App - one-tap emergency alert app that sends SMS with GPS coordinates to emergency contacts.
@@ -13,6 +13,7 @@ SOS Emergency App - one-tap emergency alert app that sends SMS with GPS coordina
 - [ ] Resubmit to Google Play production (note: version bumped well past v1.0.4+4 during fix iterations)
 
 ## Recently Completed
+- [x] Committed pending work: Android package rename to `com.chameleonideas.sosapp`, debug-only logging, contacts-flow hardening, settings privacy/terms links, Firebase rules/config, Play Store assets — (2026-10-02)
 - [x] v1.0.8+8 — instant SOS feedback: new `fastEmergencyLocation` action (last-known first, 2.5s low-accuracy fallback) replaces 15s high-accuracy GPS wait that was blocking the SOS flow for 10-12s. Handler reordered to push `/sosv2` before location lookup, so siren/flash/vibration fire within ~50ms of confirm. User-confirmed working on hardware — (2026-05-15)
 - [x] v1.0.7+7 — SOS auto-route fix: push `/sosv2` BEFORE launching SMS intent + `await endOfFrame` to guarantee route commits before backgrounding (previous v1.0.5/v1.0.6 versions dropped the post-launch push) — (2026-05-15)
 - [x] Built release APK v1.0.5+5 at `build/app/outputs/flutter-apk/app-release.apk` (79MB, release-signed via existing keystore) bundling: morse-pattern retiming, SOS auto-route on resume, vibration sync — (2026-05-15)
@@ -33,6 +34,7 @@ SOS Emergency App - one-tap emergency alert app that sends SMS with GPS coordina
 - [x] Cross-device profile sync — (2026-03-12)
 
 ## Upcoming / Planned
+- [ ] Finish package rename: `android/app/src/profile/AndroidManifest.xml` still has `package="com.mycompany.sosapp"`; iOS bundle ID still `com.mycompany.sosapp`
 - [ ] Prepare and submit production release to Google Play
 - [ ] Set up production listing (full description, screenshots, feature graphic)
 - [ ] Expand target countries beyond Canada/Pakistan if desired
